@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karibu - KMCA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body class="welcome-body">
+    <div class="welcome-container">
+        <div class="welcome-card">
+            
+            <!-- Avatar -->
+            <div class="welcome-avatar" id="welcomeAvatar">
+                ??
+            </div>
+            
+            <!-- Title -->
+            <h2 class="welcome-title">
+                Karibu <span id="welcomeName">Mtumiaji</span>!
+            </h2>
+            
+            <!-- Subtitle -->
+            <p class="welcome-subtitle">
+                Kwenye Jukwaa la Kidini la KMCA
+            </p>
+            
+            <!-- Icon -->
+            <div class="welcome-icon">
+                <i class="fas fa-dove"></i>
+            </div>
+            
+            <!-- Continue Button -->
+            <button class="btn-continue" id="welcomeContinue">
+                Endelea
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://ctzdiiyzoocxmlmeagtt.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0emRpaXl6b29jeG1sbWVhZ3R0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMjI1NTEsImV4cCI6MjEwMjY5ODU1MX0.Jy_T5XaI5CI4qfFVH7b53MDCurR2olh0a6Tx9BzDOGw';
+        
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = getCurrentUser();
+            
+            if (!user) {
+                window.location.href = 'register.html';
+                return;
+            }
+            
+            // Generate avatar
+            const names = user.jina.split(' ');
+            let avatarText = '';
+            
+            if (names.length >= 2) {
+                avatarText = (names[0][0] + names[1][0]).toUpperCase();
+            } else if (names.length === 1 && names[0].length >= 2) {
+                avatarText = names[0].substring(0, 2).toUpperCase();
+            } else {
+                avatarText = '??';
+            }
+            
+            document.getElementById('welcomeAvatar').textContent = avatarText;
+            document.getElementById('welcomeName').textContent = user.jina.split(' ')[0];
+        });
+        
+        document.getElementById('welcomeContinue').addEventListener('click', function() {
+            const user = getCurrentUser();
+            
+            if (user && user.has_shared) {
+                window.location.href = 'home.html';
+            } else {
+                window.location.href = 'share.html';
+            }
+        });
+    </script>
+</body>
+</html>

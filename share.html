@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shiriki - KMCA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body class="share-body">
+    <div class="share-container">
+        <div class="share-card">
+            
+            <!-- Icon -->
+            <div class="share-icon">
+                <i class="fas fa-share-alt"></i>
+            </div>
+            
+            <!-- Title -->
+            <h2 class="share-title">Shiriki na Marafiki 3</h2>
+            
+            <!-- Subtitle -->
+            <p class="share-subtitle">
+                Chagua sehemu unayotaka kushare
+            </p>
+            
+            <!-- Share Buttons -->
+            <div class="share-buttons">
+                <button class="btn-share whatsapp" id="shareWhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </button>
+                
+                <button class="btn-share facebook" id="shareFacebook">
+                    <i class="fab fa-facebook"></i>
+                    Facebook
+                </button>
+                
+                <button class="btn-share instagram" id="shareInstagram">
+                    <i class="fab fa-instagram"></i>
+                    Instagram
+                </button>
+            </div>
+            
+            <!-- Share Done -->
+            <button class="btn-share-done" id="shareDone">
+                <i class="fas fa-check"></i>
+                Nimeshashare, Endelea
+            </button>
+            
+            <!-- Skip -->
+            <button class="btn-skip" id="skipShare">
+                Ruka kwa sasa
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://ctzdiiyzoocxmlmeagtt.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0emRpaXl6b29jeG1sbWVhZ3R0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMjI1NTEsImV4cCI6MjEwMjY5ODU1MX0.Jy_T5XaI5CI4qfFVH7b53MDCurR2olh0a6Tx9BzDOGw';
+        
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = getCurrentUser();
+            
+            if (!user) {
+                window.location.href = 'register.html';
+                return;
+            }
+            
+            const shareLink = window.location.origin + '/index.html?ref=' + user.id;
+            const shareTitle = 'KMCA - Kwaya ya Vijana Mt. Carlo Acutis';
+            const shareText = 'Jiunge nasi kwenye KMCA!';
+            
+            // WhatsApp
+            document.getElementById('shareWhatsApp').addEventListener('click', function() {
+                const fullText = shareTitle + '\n\n' + shareText + '\n\n' + shareLink;
+                window.open('https://wa.me/?text=' + encodeURIComponent(fullText), '_blank');
+            });
+            
+            // Facebook
+            document.getElementById('shareFacebook').addEventListener('click', function() {
+                window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareLink), '_blank');
+            });
+            
+            // Instagram
+            document.getElementById('shareInstagram').addEventListener('click', function() {
+                navigator.clipboard.writeText(shareTitle + ' ' + shareLink).then(function() {
+                    alert('Link imenakiliwa! Bandika kwenye Instagram');
+                });
+            });
+            
+            // Share done
+            document.getElementById('shareDone').addEventListener('click', async function() {
+                await updateShareStatus(user.id);
+                window.location.href = 'home.html';
+            });
+            
+            // Skip
+            document.getElementById('skipShare').addEventListener('click', function() {
+                window.location.href = 'home.html';
+            });
+        });
+    </script>
+</body>
+</html>

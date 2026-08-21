@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jiunge - KMCA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body class="register-body">
+    <div class="register-container">
+        <div class="register-card">
+            <div class="register-header" style="text-align: center; margin-bottom: 30px;">
+                <h2 style="font-size: 28px; color: #1a73e8; margin-bottom: 5px;">Jiunge na KMCA</h2>
+                <p style="color: #666; font-size: 14px;">Jaza taarifa zako kujiunga</p>
+            </div>
+            
+            <form id="registerForm" class="register-form">
+                <div class="form-group">
+                    <label for="jina">
+                        <i class="fas fa-user"></i>
+                        Jina Kamili *
+                    </label>
+                    <input type="text" id="jina" name="jina" required placeholder="mfano: Martin Peramiho">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">
+                        <i class="fas fa-phone"></i>
+                        Namba ya Simu *
+                    </label>
+                    <input type="tel" id="phone" name="phone" required placeholder="mfano: 0712345678">
+                </div>
+                
+                <div class="form-group">
+                    <label for="miaka">
+                        <i class="fas fa-calendar"></i>
+                        Miaka (si lazima)
+                    </label>
+                    <input type="text" id="miaka" name="miaka" placeholder="mfano: 20">
+                </div>
+                
+                <div class="form-group">
+                    <label for="parokia">
+                        <i class="fas fa-church"></i>
+                        Parokia (si lazima)
+                    </label>
+                    <input type="text" id="parokia" name="parokia" placeholder="mfano: Peramiho">
+                </div>
+                
+                <div class="form-group">
+                    <label for="jimbo">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Jimbo (si lazima)
+                    </label>
+                    <input type="text" id="jimbo" name="jimbo" placeholder="mfano: Songea">
+                </div>
+                
+                <button type="submit" class="btn-primary btn-block">
+                    <i class="fas fa-user-plus"></i>
+                    Jiunge Sasa
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://ctzdiiyzoocxmlmeagtt.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0emRpaXl6b29jeG1sbWVhZ3R0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMjI1NTEsImV4cCI6MjEwMjY5ODU1MX0.Jy_T5XaI5CI4qfFVH7b53MDCurR2olh0a6Tx9BzDOGw';
+        
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const jina = document.getElementById('jina').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const miaka = document.getElementById('miaka').value.trim();
+            const parokia = document.getElementById('parokia').value.trim();
+            const jimbo = document.getElementById('jimbo').value.trim();
+            
+            if (!jina || !phone) {
+                alert('Tafadhali jaza jina na namba ya simu');
+                return;
+            }
+            
+            const phoneRegex = /^0[0-9]{9}$/;
+            if (!phoneRegex.test(phone)) {
+                alert('Tafadhali weka namba sahihi ya simu (mfano: 0712345678)');
+                return;
+            }
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Inajisajili...';
+            
+            try {
+                // Check if user exists
+                const { data: existingUser, error: checkError } = await supabaseClient
+                    .from('users')
+                    .select('*')
+                    .eq('phone', phone);
+                
+                if (checkError) throw checkError;
+                
+                if (existingUser && existingUser.length > 0) {
+                    localStorage.setItem('kmca_user', JSON.stringify(existingUser[0]));
+                    window.location.href = 'welcome.html';
+                    return;
+                }
+                
+                // Register new user
+                const userData = {
+                    jina: jina,
+                    phone: phone,
+                    miaka: miaka || null,
+                    parokia: parokia || null,
+                    jimbo: jimbo || null,
+                    has_shared: false
+                };
+                
+                const { data: newUser, error: insertError } = await supabaseClient
+                    .from('users')
+                    .insert([userData])
+                    .select();
+                
+                if (insertError) throw insertError;
+                
+                if (newUser && newUser.length > 0) {
+                    localStorage.setItem('kmca_user', JSON.stringify(newUser[0]));
+                    
+                    // Award points
+                    await supabaseClient
+                        .from('user_points')
+                        .insert([{
+                            user_id: newUser[0].id,
+                            action: 'register',
+                            points: 10
+                        }]);
+                    
+                    // Handle referral
+                    const ref = localStorage.getItem('kmca_ref');
+                    if (ref && ref !== newUser[0].id) {
+                        await supabaseClient
+                            .from('referrals')
+                            .insert([{
+                                referrer_id: ref,
+                                new_user_id: newUser[0].id
+                            }]);
+                    }
+                    
+                    window.location.href = 'welcome.html';
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('Imeshindikana kujisajili: ' + error.message);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Jiunge Sasa';
+            }
+        });
+    </script>
+</body>
+</html>

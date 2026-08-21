@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KMCA - Kwaya ya Vijana Mt. Carlo Acutis</title>
+    
+    <!-- ========== STYLESHEETS ========== -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- ========== FAVICON (Browser) ========== -->
+    <link rel="icon" href="icon-16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="icon-32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="icon-48.png" sizes="48x48" type="image/png">
+    <link rel="shortcut icon" href="favicon.ico">
+    
+    <!-- ========== APPLE TOUCH ICONS (iOS) ========== -->
+    <link rel="apple-touch-icon" href="icon-57.png" sizes="57x57">
+    <link rel="apple-touch-icon" href="icon-60.png" sizes="60x60">
+    <link rel="apple-touch-icon" href="icon-72.png" sizes="72x72">
+    <link rel="apple-touch-icon" href="icon-76.png" sizes="76x76">
+    <link rel="apple-touch-icon" href="icon-114.png" sizes="114x114">
+    <link rel="apple-touch-icon" href="icon-120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="icon-144.png" sizes="144x144">
+    <link rel="apple-touch-icon" href="icon-152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="icon-180.png" sizes="180x180">
+    
+    <!-- ========== PWA MANIFEST ========== -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- ========== THEME COLORS ========== -->
+    <meta name="theme-color" content="#0a0a2e">
+    <meta name="msapplication-TileColor" content="#0a0a2e">
+    <meta name="msapplication-TileImage" content="icon-144.png">
+    
+    <!-- ========== iOS PWA SUPPORT ========== -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="KMCA">
+    
+    <!-- ========== ANDROID PWA SUPPORT ========== -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="KMCA">
+</head>
+<body class="intro-body">
+
+    <div class="intro-container">
+        
+        <!-- Particles -->
+        <div class="particles">
+            <span class="particle" style="top: 10%; left: 20%;"></span>
+            <span class="particle" style="top: 30%; left: 70%;"></span>
+            <span class="particle" style="top: 60%; left: 15%;"></span>
+            <span class="particle" style="top: 75%; left: 80%;"></span>
+            <span class="particle" style="top: 45%; left: 50%;"></span>
+        </div>
+
+        <!-- Logo (Original Shape) -->
+        <div class="intro-logo" id="introLogo" style="display: none;">
+            <img src="" alt="KMCA Logo" id="logoImage">
+        </div>
+
+        <!-- Title -->
+        <h1 class="intro-title">KMCA</h1>
+        <p class="intro-subtitle">Kwaya ya Vijana Mt. Carlo Acutis</p>
+
+        <!-- Loading Dots -->
+        <div class="loading-dots">
+            <span class="dot dot-blue"></span>
+            <span class="dot dot-gold"></span>
+            <span class="dot dot-purple"></span>
+            <span class="dot dot-red"></span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://ctzdiiyzoocxmlmeagtt.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0emRpaXl6b29jeG1sbWVhZ3R0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMjI1NTEsImV4cCI6MjEwMjY5ODU1MX0.Jy_T5XaI5CI4qfFVH7b53MDCurR2olh0a6Tx9BzDOGw';
+        
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+    <script>
+        // ========== FETCH LOGO FROM SUPABASE ==========
+        async function fetchLogo() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('app_settings')
+                    .select('*')
+                    .eq('setting_key', 'intro_logo');
+                
+                if (error) throw error;
+                
+                if (data && data.length > 0 && data[0].setting_value) {
+                    const logoUrl = data[0].setting_value;
+                    
+                    const logoImage = document.getElementById('logoImage');
+                    const introLogo = document.getElementById('introLogo');
+                    
+                    logoImage.src = logoUrl;
+                    introLogo.style.display = 'flex';
+                }
+            } catch (error) {
+                console.log('No logo found, showing title only');
+            }
+        }
+        
+        // ========== FETCH LOGO ==========
+        fetchLogo();
+        
+        // ========== REDIRECT AFTER 8 SECONDS ==========
+        setTimeout(function() {
+            const userData = localStorage.getItem('kmca_user');
+            
+            if (userData) {
+                window.location.href = 'welcome.html';
+            } else {
+                window.location.href = 'register.html';
+            }
+        }, 8000);
+        
+        // ========== REGISTER SERVICE WORKER ==========
+        if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered:', registration.scope);
+                })
+                .catch(function(error) {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+        
+        // ========== REQUEST NOTIFICATION PERMISSION ==========
+        document.addEventListener('click', function requestOnce() {
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+            document.removeEventListener('click', requestOnce);
+        });
+    </script>
+</body>
+</html>

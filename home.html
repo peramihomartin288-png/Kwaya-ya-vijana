@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nyumbani - KMCA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- iOS PWA Support -->
+    <link rel="apple-touch-icon" href="logo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="KMCA">
+    <meta name="theme-color" content="#0a0a2e">
+</head>
+<body class="home-body">
+    
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <div class="header-left">
+            <button class="icon-btn" id="notificationBtn">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+            </button>
+            <button class="icon-btn" id="darkModeBtn">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+        
+        <div class="header-center">
+            <img src="" alt="Logo" id="headerLogo" style="display: none; width: 36px; height: 36px; object-fit: contain;">
+            <span class="header-logo-text" id="headerAppName">KMCA</span>
+        </div>
+        
+        <div class="header-right">
+            <button class="icon-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main-content">
+        
+        <!-- Mtakatifu wa Siku -->
+        <div class="mtakatifu-card" id="mtakatifuCard" style="display: none;">
+            <div class="mtakatifu-card-header">
+                <i class="fas fa-cross"></i>
+                <span>MTAKATIFU WA SIKU</span>
+            </div>
+            
+            <div class="mtakatifu-icon" id="mtakatifuIcon" style="cursor: pointer;">
+                <i class="fas fa-cross"></i>
+            </div>
+            
+            <h3 id="mtakatifuJina">Inapakia...</h3>
+            <p id="mtakatifuSikukuu"></p>
+            <p id="mtakatifuHistoria"></p>
+            
+            <button class="btn-soma-zaidi" id="somaZaidiBtn" style="display: none;">
+                <i class="fas fa-book-open"></i>
+                Soma Zaidi
+            </button>
+        </div>
+
+        <!-- Bible Verse ya Siku -->
+        <div class="bible-verse-card" id="bibleVerseCard">
+            <div class="bible-verse-header">
+                <i class="fas fa-bible"></i>
+                <span>NENO LA SIKU</span>
+            </div>
+            <h3 id="bibleKichwa">Inapakia...</h3>
+            <p class="bible-text" id="bibleText"></p>
+            <p class="bible-reference" id="bibleReference"></p>
+            <p class="bible-funzo" id="bibleFunzo"></p>
+        </div>
+
+        <!-- Wimbo wa Siku -->
+        <div class="wimbo-card" id="wimboCard" style="display: none;">
+            <div class="bible-verse-header">
+                <i class="fas fa-music"></i>
+                <span>WIMBO WA SIKU</span>
+            </div>
+            <h3 id="wimboJina"></h3>
+            <p id="wimboMaelezo"></p>
+            <div id="wimboMedia"></div>
+        </div>
+
+        <!-- Masomo ya Dominica (Button) -->
+        <div class="masomo-button" id="masomoButton" style="display: none;">
+            <div class="masomo-button-icon" id="masomoButtonIcon">📖</div>
+            <div class="masomo-button-text" id="masomoButtonText">Masomo ya Dominica</div>
+            <i class="fas fa-chevron-down" id="masomoChevron" style="color: #d4af37;"></i>
+        </div>
+
+        <!-- Masomo ya Dominica (Content) -->
+        <div class="masomo-card" id="masomoCard" style="display: none;">
+            <div class="bible-verse-header">
+                <i class="fas fa-book-open"></i>
+                <span>MASOMO YA DOMINICA</span>
+            </div>
+            <h3 id="masomoJina"></h3>
+            <div id="masomoContent"></div>
+        </div>
+
+        <!-- Matukio -->
+        <div class="events-section" id="eventsSection" style="display: none;">
+            <h3 class="section-title">
+                <i class="fas fa-calendar"></i>
+                Matukio
+            </h3>
+            <div id="eventsList"></div>
+        </div>
+
+        <!-- Polls -->
+        <div class="polls-section" id="pollsSection" style="display: none;">
+            <h3 class="section-title">
+                <i class="fas fa-vote-yea"></i>
+                Kura
+            </h3>
+            <div id="pollsList"></div>
+        </div>
+
+        <!-- Posts Feed -->
+        <div class="posts-section" id="postsSection">
+            <div id="postsFeed">
+                <p class="no-data">Inapakia posts...</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p id="footerMawasiliano">Inapakia...</p>
+            <p id="footerEmail">Inapakia...</p>
+            <p id="footerCopyright">Inapakia...</p>
+        </footer>
+    </main>
+
+    <!-- ========== MENU OVERLAY ========== -->
+    <div id="menuOverlay" class="menu-overlay" style="display: none;">
+        <div class="menu-container">
+            <button class="menu-close" id="menuClose">&times;</button>
+            
+            <div class="menu-header">
+                <div class="menu-avatar" id="menuAvatar">??</div>
+                <div class="menu-user-info">
+                    <h4 id="menuUserName">Mtumiaji</h4>
+                    <span id="menuUserBadge">Mgeni</span>
+                </div>
+            </div>
+            
+            <div class="menu-items">
+                <div class="menu-item" id="menuProfile">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="menu-item" id="menuSettings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="menu-item" id="menuHistory">
+                    <i class="fas fa-history"></i>
+                    <span>History</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="menu-item" id="menuQuestion">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Question</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="menu-item" id="menuAbout">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="menu-item" id="menuWatakatifu">
+                    <i class="fas fa-cross"></i>
+                    <span>Watakatifu</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="menu-item" id="menuLeaderboard">
+                    <i class="fas fa-trophy"></i>
+                    <span>Leaderboard</span>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                
+                <div class="menu-item menu-logout" id="menuLogout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Log Out</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== NOTIFICATIONS OVERLAY ========== -->
+    <div id="notificationsOverlay" class="notifications-overlay" style="display: none;">
+        <div class="notifications-container">
+            <button class="menu-close" id="notificationsClose">&times;</button>
+            <h3>Notifications</h3>
+            <div id="notificationsList">
+                <p class="no-data">Inapakia notifications...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== PROFILE MODAL ========== -->
+    <div id="profileModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="profileClose">&times;</button>
+            <h3>Profile</h3>
+            <div class="profile-header">
+                <div class="profile-avatar" id="profileAvatar">??</div>
+                <h4 id="profileName">Mtumiaji</h4>
+                <span class="profile-badge" id="profileBadge">Mgeni</span>
+            </div>
+            <div class="profile-details">
+                <div class="profile-item"><i class="fas fa-phone"></i><span id="profilePhone">N/A</span></div>
+                <div class="profile-item"><i class="fas fa-calendar"></i><span id="profileMiaka">Miaka: N/A</span></div>
+                <div class="profile-item"><i class="fas fa-church"></i><span id="profileParokia">Parokia: N/A</span></div>
+                <div class="profile-item"><i class="fas fa-map-marker-alt"></i><span id="profileJimbo">Jimbo: N/A</span></div>
+                <div class="profile-item"><i class="fas fa-star"></i><span id="profilePoints">Pointi: 0</span></div>
+            </div>
+            <button class="btn-primary btn-block" id="editProfileBtn">
+                <i class="fas fa-edit"></i> Hariri Profile
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== EDIT PROFILE MODAL ========== -->
+    <div id="editProfileModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="editProfileClose">&times;</button>
+            <h3>Hariri Profile</h3>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label>Jina Kamili *</label>
+                    <input type="text" id="editJina" required>
+                </div>
+                <div class="form-group">
+                    <label>Namba ya Simu *</label>
+                    <input type="tel" id="editPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Miaka</label>
+                    <input type="text" id="editMiaka">
+                </div>
+                <div class="form-group">
+                    <label>Parokia</label>
+                    <input type="text" id="editParokia">
+                </div>
+                <div class="form-group">
+                    <label>Jimbo</label>
+                    <input type="text" id="editJimbo">
+                </div>
+                <button type="submit" class="btn-primary btn-block">
+                    <i class="fas fa-save"></i> Hifadhi
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== SETTINGS MODAL ========== -->
+    <div id="settingsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="settingsClose">&times;</button>
+            <h3>Settings</h3>
+            <div class="settings-item">
+                <span>Dark Mode</span>
+                <label class="switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="settings-item">
+                <span>Notifications</span>
+                <label class="switch">
+                    <input type="checkbox" id="notificationsToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== QUESTION MODAL ========== -->
+    <div id="questionModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="questionClose">&times;</button>
+            <h3>Uliza Swali</h3>
+            <textarea id="questionInput" placeholder="Andika swali lako hapa..."></textarea>
+            <button class="btn-primary btn-block" id="submitQuestion">Tuma Swali</button>
+        </div>
+    </div>
+
+    <!-- ========== ABOUT MODAL ========== -->
+    <div id="aboutModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="aboutClose">&times;</button>
+            <h3>Kuhusu KMCA</h3>
+            <div id="aboutContent"><p>Inapakia...</p></div>
+        </div>
+    </div>
+
+    <!-- ========== WATAKATIFU MODAL ========== -->
+    <div id="watakatifuModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="watakatifuClose">&times;</button>
+            <h3>Watakatifu</h3>
+            <div id="watakatifuList"><p>Inapakia...</p></div>
+        </div>
+    </div>
+
+    <!-- ========== LEADERBOARD MODAL ========== -->
+    <div id="leaderboardModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="leaderboardClose">&times;</button>
+            <h3>Leaderboard</h3>
+            <div id="leaderboardList"><p>Inapakia...</p></div>
+        </div>
+    </div>
+
+    <!-- ========== MTAKATIFU DETAILS MODAL ========== -->
+    <div id="mtakatifuDetailsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="mtakatifuDetailsClose">&times;</button>
+            <div id="mtakatifuDetailsContent"></div>
+            <button class="btn-download-mtakatifu" id="downloadMtakatifuFromModal">
+                <i class="fas fa-download"></i> Download PDF
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== FULLSCREEN IMAGE MODAL ========== -->
+    <div id="fullscreenImageModal" class="fullscreen-modal" style="display: none;">
+        <button class="fullscreen-close" id="fullscreenClose">&times;</button>
+        <div class="fullscreen-carousel" id="fullscreenCarousel"></div>
+        <button class="fullscreen-prev" id="fullscreenPrev"><i class="fas fa-chevron-left"></i></button>
+        <button class="fullscreen-next" id="fullscreenNext"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- ========== SHARE MODAL ========== -->
+    <div id="shareModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close" id="shareModalClose">&times;</button>
+            <h3>Shiriki</h3>
+            <p id="shareModalText" style="color: #666; margin-bottom: 20px; font-size: 14px;"></p>
+            <div class="share-buttons">
+                <button class="btn-share whatsapp" id="shareModalWhatsApp">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </button>
+                <button class="btn-share facebook" id="shareModalFacebook">
+                    <i class="fab fa-facebook"></i> Facebook
+                </button>
+                <button class="btn-share instagram" id="shareModalInstagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://ctzdiiyzoocxmlmeagtt.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0emRpaXl6b29jeG1sbWVhZ3R0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMjI1NTEsImV4cCI6MjEwMjY5ODU1MX0.Jy_T5XaI5CI4qfFVH7b53MDCurR2olh0a6Tx9BzDOGw';
+        
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+    <script src="js/auth.js"></script>
+    <script src="js/dark-mode.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>
