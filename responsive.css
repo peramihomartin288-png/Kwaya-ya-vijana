@@ -1,0 +1,887 @@
+/* ============================================
+   KMCA PRO - RESPONSIVE STYLES
+   Supports: All phones, tablets, desktops
+   ============================================ */
+
+/* ============================================
+   SMALLEST PHONES (≤ 320px)
+   iPhone SE (1st gen), Samsung Galaxy Mini, n.k.
+   ============================================ */
+@media (max-width: 320px) {
+    body {
+        font-size: 13px;
+    }
+    
+    .header {
+        padding: 5px 8px;
+    }
+    
+    .header-logo-text {
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+    
+    .icon-btn {
+        font-size: 18px;
+        width: 32px;
+        height: 32px;
+    }
+    
+    .notification-badge {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+        border-width: 1px;
+    }
+    
+    .header-center img {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .intro-title {
+        font-size: 20px;
+        letter-spacing: 2px;
+    }
+    
+    .intro-subtitle {
+        font-size: 10px;
+    }
+    
+    .intro-logo img {
+        max-width: 70vw;
+        max-height: 35vh;
+    }
+    
+    .dot {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .loading-dots {
+        gap: 6px;
+    }
+    
+    .mtakatifu-card {
+        margin: 8px;
+        padding: 15px 10px;
+        border-radius: 12px;
+    }
+    
+    .mtakatifu-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        border-width: 2px;
+    }
+    
+    .mtakatifu-card h3 {
+        font-size: 16px;
+    }
+    
+    .mtakatifu-card p {
+        font-size: 12px;
+    }
+    
+    .btn-soma-zaidi {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+    
+    .bible-verse-card,
+    .wimbo-card,
+    .masomo-card,
+    .poll-card {
+        margin: 8px;
+        padding: 15px 12px;
+        border-radius: 12px;
+    }
+    
+    .bible-verse-card h3,
+    .wimbo-card h3 {
+        font-size: 16px;
+    }
+    
+    .bible-text {
+        font-size: 14px;
+    }
+    
+    .bible-reference {
+        font-size: 13px;
+    }
+    
+    .bible-funzo {
+        font-size: 12px;
+        padding: 10px;
+    }
+    
+    .masomo-button {
+        margin: 8px;
+        padding: 12px;
+        border-radius: 10px;
+        gap: 10px;
+    }
+    
+    .masomo-button-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .masomo-button-text {
+        font-size: 13px;
+    }
+    
+    .post-card {
+        margin: 8px;
+        border-radius: 12px;
+    }
+    
+    .post-title {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+    
+    .post-description {
+        font-size: 12px;
+        padding: 0 10px;
+    }
+    
+    .post-card-header {
+        padding: 10px;
+    }
+    
+    .post-author-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 11px;
+    }
+    
+    .action-btn {
+        font-size: 16px;
+        padding: 5px 8px;
+        gap: 4px;
+    }
+    
+    .action-btn span {
+        font-size: 11px;
+    }
+    
+    .music-icon-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        bottom: 8px;
+        right: 8px;
+    }
+    
+    .carousel-prev,
+    .carousel-next {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .poll-option {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+    
+    .comment-input input {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+    
+    .comment-submit {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .footer {
+        padding: 20px 10px;
+    }
+    
+    .footer p {
+        font-size: 12px;
+    }
+    
+    .menu-container {
+        width: 250px;
+        padding: 15px;
+    }
+    
+    .modal-content {
+        padding: 15px;
+        border-radius: 12px;
+    }
+    
+    .fullscreen-prev,
+    .fullscreen-next {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
+
+/* ============================================
+   SMALL PHONES (321px - 375px)
+   iPhone 6/7/8, iPhone SE (2nd gen), n.k.
+   ============================================ */
+@media (min-width: 321px) and (max-width: 375px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .header {
+        padding: 8px 10px;
+    }
+    
+    .header-logo-text {
+        font-size: 15px;
+        letter-spacing: 2px;
+    }
+    
+    .icon-btn {
+        font-size: 20px;
+        width: 36px;
+        height: 36px;
+    }
+    
+    .notification-badge {
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+    }
+    
+    .header-center img {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .intro-title {
+        font-size: 22px;
+        letter-spacing: 3px;
+    }
+    
+    .intro-subtitle {
+        font-size: 11px;
+    }
+    
+    .intro-logo img {
+        max-width: 72vw;
+        max-height: 40vh;
+    }
+    
+    .dot {
+        width: 9px;
+        height: 9px;
+    }
+    
+    .mtakatifu-card {
+        margin: 10px;
+        padding: 20px 15px;
+        border-radius: 15px;
+    }
+    
+    .mtakatifu-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 28px;
+    }
+    
+    .mtakatifu-card h3 {
+        font-size: 18px;
+    }
+    
+    .bible-verse-card,
+    .wimbo-card,
+    .masomo-card,
+    .poll-card {
+        margin: 10px;
+        padding: 18px 15px;
+        border-radius: 15px;
+    }
+    
+    .bible-verse-card h3,
+    .wimbo-card h3 {
+        font-size: 17px;
+    }
+    
+    .bible-text {
+        font-size: 15px;
+    }
+    
+    .masomo-button {
+        margin: 10px;
+        padding: 15px;
+        border-radius: 12px;
+    }
+    
+    .masomo-button-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+    
+    .masomo-button-text {
+        font-size: 14px;
+    }
+    
+    .post-card {
+        margin: 10px;
+        border-radius: 15px;
+    }
+    
+    .post-title {
+        font-size: 15px;
+    }
+    
+    .post-description {
+        font-size: 13px;
+    }
+    
+    .action-btn {
+        font-size: 17px;
+        padding: 6px 10px;
+    }
+    
+    .action-btn span {
+        font-size: 12px;
+    }
+    
+    .music-icon-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 15px;
+    }
+    
+    .menu-container {
+        width: 270px;
+    }
+}
+
+/* ============================================
+   MEDIUM PHONES (376px - 414px)
+   iPhone 8+, iPhone X/11/12/13, Samsung Galaxy S series
+   ============================================ */
+@media (min-width: 376px) and (max-width: 414px) {
+    body {
+        font-size: 15px;
+    }
+    
+    .header {
+        padding: 10px 12px;
+    }
+    
+    .header-logo-text {
+        font-size: 16px;
+        letter-spacing: 2px;
+    }
+    
+    .icon-btn {
+        font-size: 22px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .notification-badge {
+        width: 19px;
+        height: 19px;
+        font-size: 11px;
+    }
+    
+    .header-center img {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .intro-title {
+        font-size: 25px;
+        letter-spacing: 3px;
+    }
+    
+    .intro-subtitle {
+        font-size: 12px;
+    }
+    
+    .intro-logo img {
+        max-width: 70vw;
+        max-height: 42vh;
+    }
+    
+    .dot {
+        width: 10px;
+        height: 10px;
+    }
+    
+    .mtakatifu-card {
+        margin: 12px;
+        padding: 22px 18px;
+        border-radius: 18px;
+    }
+    
+    .mtakatifu-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+    }
+    
+    .mtakatifu-card h3 {
+        font-size: 20px;
+    }
+    
+    .bible-verse-card,
+    .wimbo-card,
+    .masomo-card,
+    .poll-card {
+        margin: 12px;
+        padding: 20px 18px;
+        border-radius: 18px;
+    }
+    
+    .bible-verse-card h3,
+    .wimbo-card h3 {
+        font-size: 18px;
+    }
+    
+    .bible-text {
+        font-size: 16px;
+    }
+    
+    .masomo-button {
+        margin: 12px;
+        padding: 18px;
+        border-radius: 15px;
+    }
+    
+    .masomo-button-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+    
+    .post-card {
+        margin: 12px;
+        border-radius: 18px;
+    }
+    
+    .post-title {
+        font-size: 16px;
+    }
+    
+    .post-description {
+        font-size: 14px;
+    }
+    
+    .action-btn {
+        font-size: 18px;
+        padding: 7px 12px;
+    }
+    
+    .music-icon-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    .menu-container {
+        width: 290px;
+    }
+}
+
+/* ============================================
+   LARGE PHONES (415px - 480px)
+   iPhone 14 Pro Max, Samsung Galaxy S Ultra, n.k.
+   ============================================ */
+@media (min-width: 415px) and (max-width: 480px) {
+    body {
+        font-size: 16px;
+    }
+    
+    .header {
+        padding: 10px 15px;
+    }
+    
+    .header-logo-text {
+        font-size: 18px;
+        letter-spacing: 3px;
+    }
+    
+    .icon-btn {
+        font-size: 24px;
+        width: 44px;
+        height: 44px;
+    }
+    
+    .notification-badge {
+        width: 20px;
+        height: 20px;
+        font-size: 11px;
+    }
+    
+    .header-center img {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .intro-title {
+        font-size: 28px;
+        letter-spacing: 4px;
+    }
+    
+    .intro-subtitle {
+        font-size: 13px;
+    }
+    
+    .intro-logo img {
+        max-width: 68vw;
+        max-height: 45vh;
+    }
+    
+    .mtakatifu-card {
+        margin: 15px;
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+    
+    .mtakatifu-icon {
+        width: 90px;
+        height: 90px;
+        font-size: 36px;
+    }
+    
+    .mtakatifu-card h3 {
+        font-size: 22px;
+    }
+    
+    .bible-verse-card,
+    .wimbo-card,
+    .masomo-card,
+    .poll-card {
+        margin: 15px;
+        padding: 25px 20px;
+        border-radius: 20px;
+    }
+    
+    .post-card {
+        margin: 15px;
+        border-radius: 20px;
+    }
+    
+    .post-title {
+        font-size: 18px;
+    }
+    
+    .action-btn {
+        font-size: 20px;
+        padding: 8px 15px;
+    }
+    
+    .music-icon-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .menu-container {
+        width: 300px;
+    }
+}
+
+/* ============================================
+   SMALL TABLETS (481px - 768px)
+   iPad Mini, Samsung Galaxy Tab, n.k.
+   ============================================ */
+@media (min-width: 481px) and (max-width: 768px) {
+    .main-content {
+        max-width: 550px;
+    }
+    
+    .header {
+        padding: 12px 20px;
+    }
+    
+    .header-logo-text {
+        font-size: 20px;
+        letter-spacing: 3px;
+    }
+    
+    .icon-btn {
+        font-size: 26px;
+        width: 48px;
+        height: 48px;
+    }
+    
+    .intro-title {
+        font-size: 32px;
+        letter-spacing: 5px;
+    }
+    
+    .intro-subtitle {
+        font-size: 14px;
+    }
+    
+    .intro-logo img {
+        max-width: 60vw;
+        max-height: 48vh;
+    }
+    
+    .mtakatifu-icon {
+        width: 100px;
+        height: 100px;
+        font-size: 40px;
+    }
+    
+    .post-title {
+        font-size: 19px;
+    }
+    
+    .bible-text {
+        font-size: 17px;
+    }
+    
+    .mtakatifu-section-content {
+        font-size: 16px;
+    }
+}
+
+/* ============================================
+   LARGE TABLETS (769px - 1024px)
+   iPad Pro, Samsung Galaxy Tab S, n.k.
+   ============================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .main-content {
+        max-width: 600px;
+    }
+    
+    .header {
+        padding: 12px 25px;
+    }
+    
+    .header-logo-text {
+        font-size: 22px;
+        letter-spacing: 4px;
+    }
+    
+    .icon-btn {
+        font-size: 28px;
+        width: 50px;
+        height: 50px;
+    }
+    
+    .intro-title {
+        font-size: 36px;
+        letter-spacing: 6px;
+    }
+    
+    .intro-logo img {
+        max-width: 55vw;
+        max-height: 50vh;
+    }
+    
+    .mtakatifu-icon {
+        width: 110px;
+        height: 110px;
+    }
+    
+    .post-title {
+        font-size: 20px;
+    }
+}
+
+/* ============================================
+   DESKTOP (1025px - 1366px)
+   ============================================ */
+@media (min-width: 1025px) and (max-width: 1366px) {
+    .main-content {
+        max-width: 600px;
+    }
+    
+    .header-logo-text {
+        font-size: 24px;
+        letter-spacing: 4px;
+    }
+    
+    .icon-btn {
+        font-size: 28px;
+        width: 52px;
+        height: 52px;
+    }
+    
+    .intro-title {
+        font-size: 40px;
+        letter-spacing: 7px;
+    }
+    
+    .intro-logo img {
+        max-width: 50vw;
+        max-height: 50vh;
+    }
+    
+    .post-title {
+        font-size: 22px;
+    }
+    
+    .bible-text {
+        font-size: 18px;
+    }
+}
+
+/* ============================================
+   LARGE DESKTOP (1367px+)
+   ============================================ */
+@media (min-width: 1367px) {
+    .main-content {
+        max-width: 650px;
+    }
+    
+    .header-logo-text {
+        font-size: 26px;
+        letter-spacing: 5px;
+    }
+    
+    .icon-btn {
+        font-size: 30px;
+        width: 56px;
+        height: 56px;
+    }
+    
+    .intro-title {
+        font-size: 44px;
+        letter-spacing: 8px;
+    }
+    
+    .intro-logo img {
+        max-width: 45vw;
+        max-height: 50vh;
+    }
+    
+    .post-title {
+        font-size: 24px;
+    }
+    
+    .bible-text {
+        font-size: 19px;
+    }
+}
+
+/* ============================================
+   LANDSCAPE MODE (All phones)
+   ============================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+    .intro-logo {
+        margin-bottom: 8px;
+    }
+    
+    .intro-logo img {
+        max-width: 30vh;
+        max-height: 25vh;
+    }
+    
+    .intro-title {
+        font-size: 18px;
+        letter-spacing: 2px;
+        margin-bottom: 3px;
+    }
+    
+    .intro-subtitle {
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .dot {
+        width: 7px;
+        height: 7px;
+    }
+    
+    .loading-dots {
+        gap: 5px;
+    }
+    
+    .header {
+        padding: 5px 10px;
+    }
+    
+    .mtakatifu-card {
+        padding: 15px;
+        margin: 10px;
+    }
+    
+    .mtakatifu-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .post-card {
+        margin: 10px;
+    }
+}
+
+/* ============================================
+   HIGH RESOLUTION DISPLAYS
+   ============================================ */
+@media (-webkit-min-device-pixel-ratio: 2) {
+    .particle {
+        width: 2px;
+        height: 2px;
+    }
+}
+
+/* ============================================
+   DARK MODE PREFERENCE (System)
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+    body:not(.light-mode):not(.dark-mode) {
+        background: #0a0a0a;
+        color: #ffffff;
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+    .header,
+    .menu-overlay,
+    .notifications-overlay,
+    .modal,
+    .post-card-actions,
+    .post-comments-section,
+    .footer,
+    .music-icon-btn,
+    .carousel-prev,
+    .carousel-next,
+    .fullscreen-modal {
+        display: none !important;
+    }
+    
+    body {
+        background: #fff;
+        color: #000;
+    }
+    
+    .post-card,
+    .bible-verse-card,
+    .masomo-card {
+        border: 1px solid #ccc;
+        box-shadow: none;
+        margin: 0;
+        border-radius: 0;
+    }
+}
+
+/* ============================================
+   SAFE AREA (iPhone with notch)
+   ============================================ */
+@supports (padding: max(0px)) {
+    .header {
+        padding-left: max(15px, env(safe-area-inset-left));
+        padding-right: max(15px, env(safe-area-inset-right));
+        padding-top: max(10px, env(safe-area-inset-top));
+    }
+    
+    .main-content {
+        padding-bottom: max(0px, env(safe-area-inset-bottom));
+    }
+}

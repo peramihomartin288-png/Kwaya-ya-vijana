@@ -1,0 +1,1964 @@
+/* ============================================
+   KMCA PRO - COMPLETE STYLES
+   Light + Dark Mode | Smooth | Instagram-like
+   ============================================ */
+
+/* ========== RESET ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8f9fa;
+    color: #1c1e21;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}
+
+/* ============================================
+   INTRO PAGE
+   ============================================ */
+.intro-body {
+    background: linear-gradient(135deg, #0a0a2e 0%, #1a1a4e 25%, #0d47a1 50%, #0a0a0a 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.intro-container {
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.intro-logo {
+    margin-bottom: 20px;
+    animation: fadeInUp 1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro-logo img {
+    max-width: 70vw;
+    max-height: 50vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.6));
+    animation: logoGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlow {
+    0% { filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.5)); }
+    100% { filter: drop-shadow(0 0 60px rgba(212, 175, 55, 0.9)); }
+}
+
+.intro-title {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: 8px;
+    margin-bottom: 5px;
+    background: linear-gradient(135deg, #ffffff, #d4af37, #ffffff);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmerText 2s ease-in-out infinite;
+}
+
+@keyframes shimmerText {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.intro-subtitle {
+    font-size: 15px;
+    color: #d4af37;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+.loading-dots {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: facebookDots 1.2s infinite ease-in-out;
+}
+
+.dot-blue { background: #1a73e8; animation-delay: 0s; }
+.dot-gold { background: #d4af37; animation-delay: 0.2s; }
+.dot-purple { background: #9c27b0; animation-delay: 0.4s; }
+.dot-red { background: #e53935; animation-delay: 0.6s; }
+
+@keyframes facebookDots {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* ============================================
+   REGISTER PAGE
+   ============================================ */
+.register-body {
+    background: linear-gradient(135deg, #0a0a2e 0%, #1a1a4e 50%, #0d47a1 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.register-container {
+    width: 100%;
+    max-width: 480px;
+}
+
+.register-card {
+    background: #ffffff;
+    border-radius: 25px;
+    padding: 40px 30px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 0.6s ease;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 14px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s;
+    background: #fff;
+    color: #1c1e21;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #1a73e8;
+    outline: none;
+    box-shadow: 0 0 15px rgba(26, 115, 232, 0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #1a73e8, #0d47a1);
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(26, 115, 232, 0.4);
+}
+
+.btn-block { width: 100%; }
+
+/* ============================================
+   WELCOME PAGE
+   ============================================ */
+.welcome-body {
+    background: linear-gradient(135deg, #0a0a2e 0%, #2e7d32 50%, #0a0a0a 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.welcome-container {
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.welcome-card {
+    background: #ffffff;
+    border-radius: 25px;
+    padding: 40px 30px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 0.6s ease;
+}
+
+.welcome-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2e7d32, #d4af37, #1a73e8);
+    background-size: 300% 300%;
+    animation: avatarGradient 3s ease infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 40px rgba(46, 125, 50, 0.5);
+}
+
+@keyframes avatarGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.welcome-title {
+    font-size: 28px;
+    color: #2e7d32;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.welcome-subtitle {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+.welcome-icon {
+    font-size: 50px;
+    color: #d4af37;
+    margin-bottom: 25px;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+.btn-continue {
+    width: 100%;
+    background: linear-gradient(135deg, #2e7d32, #1b5e20);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-continue:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(46, 125, 50, 0.4);
+}
+
+/* ============================================
+   SHARE PAGE
+   ============================================ */
+.share-body {
+    background: linear-gradient(135deg, #0a0a2e 0%, #c62828 50%, #0a0a0a 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.share-container {
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.share-card {
+    background: #ffffff;
+    border-radius: 25px;
+    padding: 40px 30px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 0.6s ease;
+}
+
+.share-icon {
+    font-size: 60px;
+    color: #c62828;
+    margin-bottom: 20px;
+    animation: sharePulse 2s ease-in-out infinite;
+}
+
+@keyframes sharePulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.share-title {
+    font-size: 24px;
+    color: #c62828;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.share-subtitle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.share-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-share {
+    padding: 15px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #fff;
+}
+
+.btn-share.whatsapp { background: #25d366; }
+.btn-share.facebook { background: #1877f2; }
+.btn-share.instagram { background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); }
+
+.btn-share:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.btn-share-done {
+    width: 100%;
+    background: linear-gradient(135deg, #c62828, #b71c1c);
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.btn-skip {
+    width: 100%;
+    background: transparent;
+    color: #666;
+    border: 2px solid #ccc;
+    padding: 12px;
+    border-radius: 25px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-skip:hover {
+    background: #f5f5f5;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.header-center {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.header-logo-text {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1a73e8;
+    letter-spacing: 3px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 26px;
+    color: #1a73e8;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.icon-btn:hover {
+    background: rgba(26, 115, 232, 0.12);
+    transform: scale(1.1);
+}
+
+.notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #e53935;
+    color: #fff;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid #fff;
+}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+.main-content {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* ============================================
+   MTAKATIFU CARD
+   ============================================ */
+.mtakatifu-card {
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    padding: 30px 20px;
+    text-align: center;
+    color: #fff;
+    border-radius: 20px;
+    margin: 15px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.5s ease;
+}
+
+.mtakatifu-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #d4af37;
+}
+
+.mtakatifu-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4af37, #f9e547);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: #1a1a2e;
+    margin: 0 auto 15px;
+    overflow: hidden;
+    border: 3px solid #d4af37;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.mtakatifu-icon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.7);
+}
+
+.mtakatifu-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.mtakatifu-card h3 {
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.mtakatifu-card p {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.btn-soma-zaidi {
+    background: rgba(212, 175, 55, 0.2);
+    color: #d4af37;
+    border: 2px solid #d4af37;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s;
+}
+
+.btn-soma-zaidi:hover {
+    background: #d4af37;
+    color: #1a1a2e;
+}
+
+/* ============================================
+   BIBLE VERSE CARD
+   ============================================ */
+.bible-verse-card {
+    background: #ffffff;
+    padding: 25px 20px;
+    border-radius: 20px;
+    margin: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    animation: fadeInUp 0.5s ease;
+}
+
+.bible-verse-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    color: #1a73e8;
+    margin-bottom: 15px;
+}
+
+.bible-verse-card h3 {
+    font-size: 20px;
+    color: #1c1e21;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.bible-text {
+    font-style: italic;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+.bible-reference {
+    font-weight: 700;
+    font-size: 15px;
+    color: #1a73e8;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.bible-funzo {
+    font-size: 14px;
+    color: #555;
+    background: rgba(26, 115, 232, 0.08);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 3px solid #1a73e8;
+}
+
+/* ============================================
+   WIMBO CARD
+   ============================================ */
+.wimbo-card {
+    background: #ffffff;
+    padding: 25px 20px;
+    border-radius: 20px;
+    margin: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    animation: fadeInUp 0.5s ease;
+}
+
+.wimbo-card h3 {
+    font-size: 20px;
+    color: #1c1e21;
+    margin-bottom: 10px;
+}
+
+.wimbo-card p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* ============================================
+   MASOMO BUTTON
+   ============================================ */
+.masomo-button {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 2px solid #d4af37;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s;
+    animation: fadeInUp 0.5s ease;
+}
+
+.masomo-button:active {
+    transform: scale(0.98);
+}
+
+.masomo-button-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4af37, #f9e547);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    color: #1a1a2e;
+    flex-shrink: 0;
+}
+
+.masomo-button-text {
+    flex: 1;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* ============================================
+   MASOMO CARD
+   ============================================ */
+.masomo-card {
+    background: #ffffff;
+    padding: 25px 20px;
+    border-radius: 20px;
+    margin: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.masomo-card h3 {
+    font-size: 20px;
+    color: #1a73e8;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* ============================================
+   MTAKATIFU SECTIONS (Utofauti)
+   ============================================ */
+.mtakatifu-details-jina {
+    font-size: 24px;
+    font-weight: 800;
+    color: #d4af37;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.mtakatifu-section {
+    margin-bottom: 20px;
+}
+
+.mtakatifu-section-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #d4af37;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.mtakatifu-section-content {
+    font-size: 15px;
+    color: #ccc;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/* ============================================
+   POSTS (Instagram-like)
+   ============================================ */
+.posts-section {
+    padding: 0;
+}
+
+.post-card {
+    background: #ffffff;
+    border-radius: 20px;
+    margin: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s;
+    animation: fadeInUp 0.5s ease;
+}
+
+.post-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.post-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+}
+
+.post-author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a73e8, #d4af37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.post-author-info h4 {
+    font-size: 15px;
+    color: #1c1e21;
+}
+
+.post-author-info span {
+    font-size: 12px;
+    color: #666;
+}
+
+.post-card-body {
+    padding: 0;
+}
+
+.post-title {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0 15px;
+    margin-bottom: 5px;
+    color: #1c1e21;
+}
+
+.post-description {
+    padding: 0 15px;
+    color: #333;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.full-width-media {
+    width: 100%;
+    margin: 0;
+    position: relative;
+}
+
+.full-width-media img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.full-width-media video {
+    width: 100%;
+    display: block;
+}
+
+.music-icon-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    z-index: 10;
+}
+
+.music-icon-btn:hover {
+    background: #d4af37;
+    color: #1a1a2e;
+    transform: scale(1.1);
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-container {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.carousel-slide {
+    min-width: 100%;
+}
+
+.carousel-slide img {
+    width: 100%;
+    display: block;
+}
+
+.carousel-prev,
+.carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.carousel-prev { left: 10px; }
+.carousel-next { right: 10px; }
+
+.text-only {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 50px 20px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-post {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    padding: 40px 20px;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.file-post i {
+    font-size: 60px;
+    color: #d4af37;
+}
+
+.file-post span {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.btn-download-file {
+    background: #1a73e8;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/* ============================================
+   POST ACTIONS
+   ============================================ */
+.post-card-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    color: #666;
+    transition: all 0.3s;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.action-btn:hover {
+    background: rgba(26, 115, 232, 0.1);
+    color: #1a73e8;
+}
+
+.action-btn.liked {
+    color: #e53935;
+}
+
+.action-btn span {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ============================================
+   COMMENTS
+   ============================================ */
+.post-comments-section {
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.comment-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #1a73e8;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.comment-content strong {
+    font-size: 13px;
+    color: #1a73e8;
+}
+
+.comment-content p {
+    font-size: 14px;
+    color: #333;
+}
+
+.comment-input {
+    display: flex;
+    gap: 10px;
+}
+
+.comment-input input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+.comment-submit {
+    background: #1a73e8;
+    color: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* ============================================
+   POLLS
+   ============================================ */
+.poll-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.poll-card h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1c1e21;
+    margin-bottom: 15px;
+}
+
+.poll-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.poll-option {
+    background: #f5f5f5;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    transition: all 0.3s;
+    text-align: left;
+}
+
+.poll-option:hover {
+    background: #1a73e8;
+    color: #fff;
+    border-color: #1a73e8;
+}
+
+.poll-deadline {
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+}
+
+.poll-result {
+    margin-bottom: 10px;
+}
+
+.poll-result-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.poll-result-bar {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.poll-result-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #1a73e8, #d4af37);
+    border-radius: 4px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+    background: #1a1a2e;
+    color: #fff;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.footer p {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* ============================================
+   MENU OVERLAY
+   ============================================ */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.menu-container {
+    width: 300px;
+    background: #ffffff;
+    height: 100%;
+    padding: 20px;
+    overflow-y: auto;
+    animation: slideIn 0.3s ease;
+}
+
+.menu-close {
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+    color: #333;
+}
+
+.menu-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.menu-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a73e8, #d4af37);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s;
+    color: #333;
+}
+
+.menu-item:hover {
+    background: rgba(26, 115, 232, 0.1);
+}
+
+.menu-item i {
+    font-size: 20px;
+    color: #1a73e8;
+    width: 25px;
+}
+
+.menu-item span {
+    flex: 1;
+    font-size: 15px;
+}
+
+.menu-logout {
+    color: #e53935;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 10px;
+    padding-top: 15px;
+}
+
+.menu-logout i {
+    color: #e53935;
+}
+
+/* ============================================
+   MODALS
+   ============================================ */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 300;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: fadeInUp 0.3s ease;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    float: right;
+    color: #333;
+}
+
+.modal h3 {
+    margin-bottom: 20px;
+    color: #1a73e8;
+}
+
+/* ============================================
+   NOTIFICATIONS
+   ============================================ */
+.notifications-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.notifications-container {
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 60px;
+    max-height: 70vh;
+    overflow-y: auto;
+    animation: fadeInDown 0.3s ease;
+}
+
+.notification-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.notification-item i {
+    font-size: 22px;
+    color: #d4af37;
+}
+
+/* ============================================
+   FULLSCREEN IMAGE MODAL
+   ============================================ */
+.fullscreen-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 500;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.fullscreen-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.fullscreen-carousel {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.fullscreen-slide {
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fullscreen-slide img {
+    max-width: 100%;
+    max-height: 100vh;
+    object-fit: contain;
+}
+
+.fullscreen-prev,
+.fullscreen-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 10;
+}
+
+.fullscreen-prev { left: 20px; }
+.fullscreen-next { right: 20px; }
+
+/* ============================================
+   PRESERVE FORMAT
+   ============================================ */
+.preserve-format {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* ============================================
+   LOADING SKELETON
+   ============================================ */
+.loading-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+}
+
+.skeleton-card {
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 15px;
+    height: 200px;
+}
+
+/* ============================================
+   DARK MODE
+   ============================================ */
+.home-body.dark-mode {
+    background: #0a0a0a;
+    color: #ffffff;
+}
+
+/* Header Dark */
+.home-body.dark-mode .header {
+    background: rgba(26, 26, 26, 0.9);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.home-body.dark-mode .header-logo-text {
+    color: #d4af37;
+}
+
+.home-body.dark-mode .icon-btn {
+    color: #d4af37;
+}
+
+.home-body.dark-mode .notification-badge {
+    border-color: #1a1a1a;
+}
+
+/* Cards Dark */
+.home-body.dark-mode .bible-verse-card,
+.home-body.dark-mode .wimbo-card,
+.home-body.dark-mode .masomo-card,
+.home-body.dark-mode .poll-card,
+.home-body.dark-mode .post-card {
+    background: #1a1a1a;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Text Dark */
+.home-body.dark-mode .bible-verse-card h3,
+.home-body.dark-mode .wimbo-card h3,
+.home-body.dark-mode .post-title,
+.home-body.dark-mode .poll-card h4 {
+    color: #ffffff;
+}
+
+.home-body.dark-mode .bible-text,
+.home-body.dark-mode .post-description,
+.home-body.dark-mode .comment-content p {
+    color: #cccccc;
+}
+
+.home-body.dark-mode .bible-funzo {
+    color: #cccccc;
+    background: rgba(26, 115, 232, 0.15);
+    border-left-color: #d4af37;
+}
+
+.home-body.dark-mode .bible-reference {
+    color: #d4af37;
+}
+
+/* Bible Header Dark */
+.home-body.dark-mode .bible-verse-header,
+.home-body.dark-mode .section-title {
+    color: #d4af37;
+}
+
+/* Post Actions Dark */
+.home-body.dark-mode .post-card-actions,
+.home-body.dark-mode .post-comments-section {
+    border-top-color: #333;
+}
+
+.home-body.dark-mode .action-btn {
+    color: #999;
+}
+
+.home-body.dark-mode .action-btn:hover {
+    background: rgba(212, 175, 55, 0.2);
+    color: #d4af37;
+}
+
+/* Comments Dark */
+.home-body.dark-mode .comment-input input {
+    background: #0a0a0a;
+    border-color: #333;
+    color: #fff;
+}
+
+.home-body.dark-mode .comment-content strong {
+    color: #d4af37;
+}
+
+/* Polls Dark */
+.home-body.dark-mode .poll-option {
+    background: #0a0a0a;
+    border-color: #333;
+    color: #ccc;
+}
+
+.home-body.dark-mode .poll-option:hover {
+    background: #d4af37;
+    color: #0a0a0a;
+    border-color: #d4af37;
+}
+
+.home-body.dark-mode .poll-result-label {
+    color: #ccc;
+}
+
+.home-body.dark-mode .poll-result-bar {
+    background: #333;
+}
+
+/* Menu Dark */
+.home-body.dark-mode .menu-container {
+    background: #1a1a1a;
+}
+
+.home-body.dark-mode .menu-item {
+    color: #ccc;
+}
+
+.home-body.dark-mode .menu-item i {
+    color: #d4af37;
+}
+
+.home-body.dark-mode .menu-header {
+    border-bottom-color: #333;
+}
+
+.home-body.dark-mode .menu-close {
+    color: #fff;
+}
+
+/* Modal Dark */
+.home-body.dark-mode .modal-content {
+    background: #1a1a1a;
+}
+
+.home-body.dark-mode .modal-close {
+    color: #fff;
+}
+
+.home-body.dark-mode .modal h3 {
+    color: #d4af37;
+}
+
+/* Notifications Dark */
+.home-body.dark-mode .notifications-container {
+    background: #1a1a1a;
+}
+
+.home-body.dark-mode .notification-item {
+    border-bottom-color: #333;
+}
+
+/* Footer Dark */
+.home-body.dark-mode .footer {
+    background: #1a1a1a;
+}
+
+.home-body.dark-mode .footer p {
+    color: #999;
+}
+
+/* Masomo Button Dark */
+.home-body.dark-mode .masomo-button {
+    background: #1a1a1a;
+    border-color: #d4af37;
+}
+
+.home-body.dark-mode .masomo-button-text {
+    color: #fff;
+}
+
+/* Mtakatifu Section Dark */
+.home-body.dark-mode .mtakatifu-section-content {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ccc;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 360px) {
+    .header { padding: 8px 10px; }
+    .header-logo-text { font-size: 16px; letter-spacing: 2px; }
+    .icon-btn { font-size: 22px; width: 40px; height: 40px; }
+    .notification-badge { width: 18px; height: 18px; font-size: 10px; }
+    .mtakatifu-icon { width: 80px; height: 80px; font-size: 30px; }
+    .mtakatifu-card h3 { font-size: 20px; }
+    .post-title { font-size: 16px; }
+    .action-btn { font-size: 18px; padding: 6px 10px; }
+    .music-icon-btn { width: 35px; height: 35px; font-size: 16px; }
+    .intro-title { font-size: 24px; letter-spacing: 3px; }
+    .intro-logo img { max-width: 75vw; max-height: 40vh; }
+}
+
+@media (min-width: 361px) and (max-width: 480px) {
+    .header { padding: 10px 15px; }
+    .icon-btn { font-size: 24px; width: 44px; height: 44px; }
+    .intro-title { font-size: 28px; letter-spacing: 4px; }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .main-content { max-width: 600px; }
+    .intro-title { font-size: 34px; letter-spacing: 5px; }
+}
+
+@media (min-width: 769px) {
+    .main-content { max-width: 600px; }
+    .intro-title { font-size: 40px; letter-spacing: 6px; }
+    .icon-btn { font-size: 28px; width: 52px; height: 52px; }
+    .header-logo-text { font-size: 24px; letter-spacing: 4px; }
+    .mtakatifu-icon { width: 110px; height: 110px; }
+    .post-title { font-size: 20px; }
+}
+/* ============================================
+   HISTORY PAGE STYLES
+   ============================================ */
+
+/* ========== HISTORY TABS CONTAINER ========== */
+.history-tabs-container {
+    padding: 15px;
+    position: sticky;
+    top: 60px;
+    z-index: 50;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* ========== HISTORY TABS ========== */
+.history-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.history-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.history-tab {
+    background: #ffffff;
+    border: 2px solid #e0e0e0;
+    padding: 10px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.3s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+.history-tab:hover {
+    border-color: #1a73e8;
+    color: #1a73e8;
+}
+
+.history-tab.active {
+    background: #1a73e8;
+    color: #ffffff;
+    border-color: #1a73e8;
+}
+
+.history-tab i {
+    font-size: 14px;
+}
+
+/* ========== HISTORY CARDS ========== */
+.history-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    animation: fadeInUp 0.5s ease;
+}
+
+.history-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.history-card-header i {
+    color: #d4af37;
+    font-size: 20px;
+}
+
+.history-card-header strong {
+    font-size: 16px;
+    color: #1a73e8;
+    font-weight: 700;
+}
+
+.history-date {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.history-text {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+    white-space: pre-wrap;
+    line-height: 1.8;
+}
+
+.history-reference {
+    font-size: 13px;
+    color: #1a73e8;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* ========== HISTORY SECTIONS (Utofauti) ========== */
+.history-section-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #d4af37;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.history-section-content {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    background: rgba(0, 0, 0, 0.03);
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* ========== NO DATA ========== */
+.no-data {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+    font-size: 15px;
+}
+
+/* ============================================
+   DARK MODE - HISTORY
+   ============================================ */
+.home-body.dark-mode .history-tabs-container {
+    background: #0a0a0a;
+    border-bottom-color: #333;
+}
+
+.home-body.dark-mode .history-tab {
+    background: #1a1a1a;
+    border-color: #333;
+    color: #ccc;
+}
+
+.home-body.dark-mode .history-tab:hover {
+    border-color: #d4af37;
+    color: #d4af37;
+}
+
+.home-body.dark-mode .history-tab.active {
+    background: #d4af37;
+    color: #0a0a0a;
+    border-color: #d4af37;
+}
+
+.home-body.dark-mode .history-card {
+    background: #1a1a1a;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.home-body.dark-mode .history-card-header {
+    border-bottom-color: #333;
+}
+
+.home-body.dark-mode .history-card-header strong {
+    color: #d4af37;
+}
+
+.home-body.dark-mode .history-date {
+    color: #666;
+}
+
+.home-body.dark-mode .history-text {
+    color: #ccc;
+}
+
+.home-body.dark-mode .history-reference {
+    color: #d4af37;
+}
+
+.home-body.dark-mode .history-section-heading {
+    color: #d4af37;
+}
+
+.home-body.dark-mode .history-section-content {
+    color: #ccc;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.home-body.dark-mode .no-data {
+    color: #666;
+}
+
+/* ============================================
+   RESPONSIVE - HISTORY
+   ============================================ */
+@media (max-width: 320px) {
+    .history-tab {
+        padding: 8px 12px;
+        font-size: 11px;
+        gap: 3px;
+    }
+    
+    .history-tab i {
+        font-size: 12px;
+    }
+    
+    .history-card {
+        margin: 8px;
+        padding: 15px 12px;
+        border-radius: 12px;
+    }
+    
+    .history-card-header strong {
+        font-size: 14px;
+    }
+    
+    .history-text {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 375px) {
+    .history-tab {
+        padding: 9px 14px;
+        font-size: 12px;
+    }
+    
+    .history-card {
+        margin: 10px;
+        padding: 18px 15px;
+        border-radius: 15px;
+    }
+}
+
+@media (min-width: 376px) and (max-width: 414px) {
+    .history-tab {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+    
+    .history-card {
+        margin: 12px;
+        padding: 20px 18px;
+        border-radius: 18px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .history-card {
+        margin: 15px;
+        padding: 25px 20px;
+    }
+}
+
+@media (min-width: 769px) {
+    .history-card {
+        margin: 15px;
+        padding: 25px 22px;
+    }
+    
+    .history-tab {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+}
+
+/* ========== LANDSCAPE ========== */
+@media (max-height: 500px) and (orientation: landscape) {
+    .history-tabs-container {
+        padding: 8px;
+    }
+    
+    .history-tab {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+    
+    .history-card {
+        margin: 8px;
+        padding: 12px;
+    }
+}
