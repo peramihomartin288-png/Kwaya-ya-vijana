@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#020617">
+    <title>Masomo ya Dominica - KMCA</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="user-icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="KMCA">
+    <link rel="icon" href="favicon.ico">
+    
+    <style>
+        :root {
+            --primary: #d4af37;
+            --primary-dark: #b8962e;
+            --primary-light: #f0d060;
+            --bg-dark: #020617;
+            --bg-card: #0f172a;
+            --bg-input: #1e293b;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --error: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --cyan: #06b6d4;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-input: #f1f5f9;
+            --text-light: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 40px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* ============ HEADER ============ */
+        .page-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn {
+            width: 42px;
+            height: 42px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-light);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateX(-2px);
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-title i {
+            color: var(--cyan);
+        }
+
+        .header-spacer {
+            width: 42px;
+        }
+
+        /* ============ MAIN ============ */
+        .main-content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 76px 12px 20px;
+        }
+
+        /* ============ LOADING ============ */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            gap: 16px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--bg-input);
+            border-top-color: var(--cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* ============ MASOMO CARD ============ */
+        .masomo-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+            margin-bottom: 16px;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============ MASOMO HEADER ============ */
+        .masomo-header {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(6, 182, 212, 0.05));
+            padding: 40px 24px 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .masomo-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        /* ============ DOMINICA ICON ============ */
+        .dominica-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--cyan), #0891b2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+            font-weight: 900;
+            color: white;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 15px 40px rgba(6, 182, 212, 0.5);
+            animation: iconPulse 3s ease-in-out infinite;
+            letter-spacing: -2px;
+        }
+
+        .dominica-icon.text-icon {
+            font-size: 40px;
+            letter-spacing: 0;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .masomo-title {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.5px;
+            line-height: 1.3;
+        }
+
+        .masomo-date {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--cyan);
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============ MASOMO BODY ============ */
+        .masomo-body {
+            padding: 24px;
+        }
+
+        /* ============ SECTIONS ============ */
+        .masomo-section {
+            margin-bottom: 24px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .masomo-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .masomo-section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .masomo-section-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .masomo-section-title {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .masomo-section-content {
+            font-size: 15px;
+            color: var(--text-light);
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            padding: 16px;
+            background: var(--bg-input);
+            border-radius: var(--radius-md);
+            border-left: 4px solid;
+        }
+
+        /* ============ SPECIFIC SECTIONS ============ */
+        .masomo-section.somo1 .masomo-section-icon {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--cyan);
+        }
+        .masomo-section.somo1 .masomo-section-title {
+            color: var(--cyan);
+        }
+        .masomo-section.somo1 .masomo-section-content {
+            border-left-color: var(--cyan);
+        }
+
+        .masomo-section.wimbo .masomo-section-icon {
+            background: rgba(168, 85, 247, 0.15);
+            color: #a855f7;
+        }
+        .masomo-section.wimbo .masomo-section-title {
+            color: #a855f7;
+        }
+        .masomo-section.wimbo .masomo-section-content {
+            border-left-color: #a855f7;
+        }
+
+        .masomo-section.somo2 .masomo-section-icon {
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--cyan);
+        }
+        .masomo-section.somo2 .masomo-section-title {
+            color: var(--cyan);
+        }
+        .masomo-section.somo2 .masomo-section-content {
+            border-left-color: var(--cyan);
+        }
+
+        .masomo-section.shangilio .masomo-section-icon {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+        }
+        .masomo-section.shangilio .masomo-section-title {
+            color: #3b82f6;
+        }
+        .masomo-section.shangilio .masomo-section-content {
+            border-left-color: #3b82f6;
+        }
+
+        .masomo-section.injili .masomo-section-icon {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--primary);
+        }
+        .masomo-section.injili .masomo-section-title {
+            color: var(--primary);
+        }
+        .masomo-section.injili .masomo-section-content {
+            border-left-color: var(--primary);
+            font-size: 16px;
+        }
+
+        /* ============ ACTIONS ============ */
+        .masomo-actions {
+            display: flex;
+            border-top: 1px solid var(--border);
+        }
+
+        .masomo-action {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+        }
+
+        .masomo-action:hover {
+            background: var(--bg-input);
+            color: var(--text-light);
+        }
+
+        .masomo-action.liked {
+            color: var(--error);
+        }
+
+        .masomo-action.liked i {
+            animation: heartBeat 0.5s;
+        }
+
+        @keyframes heartBeat {
+            0%, 25%, 50%, 75%, 100% { transform: scale(1); }
+            40% { transform: scale(1.3); }
+            60% { transform: scale(1.2); }
+        }
+
+        /* ============ COMMENTS MODAL ============ */
+        .comments-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 5000;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .comments-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .comments-modal-content {
+            background: var(--bg-card);
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 700px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            animation: slideUpModal 0.3s ease-out;
+        }
+
+        @keyframes slideUpModal {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .comments-modal-header {
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .comments-modal-header h3 {
+            font-size: 17px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comments-modal-header h3 i {
+            color: var(--primary);
+        }
+
+        .comments-modal-close {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-input);
+            border: none;
+            border-radius: 50%;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .comments-modal-close:hover {
+            background: var(--error);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .comments-modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 20px;
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .comment-item {
+            display: flex;
+            gap: 12px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .comment-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--bg-dark);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .comment-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comment-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .comment-author {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .comment-time {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .comment-text {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .no-comments {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        .no-comments i {
+            font-size: 48px;
+            color: var(--border);
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .comments-modal-footer {
+            padding: 12px 20px 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .comment-input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .comment-input {
+            flex: 1;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            color: var(--text-light);
+            font-size: 14px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .comment-input:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-send-comment {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--bg-dark);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 12px 18px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-prompt {
+            background: var(--bg-input);
+            border: 1px dashed var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .login-prompt i {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .login-prompt p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+
+        .btn-login-prompt {
+            background: var(--primary);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        /* ============ SHARE MODAL ============ */
+        .share-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 5000;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.2s;
+        }
+
+        .share-modal-content {
+            background: var(--bg-card);
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 500px;
+            padding: 24px 20px;
+            animation: slideUpModal 0.3s ease-out;
+        }
+
+        .share-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .share-modal-header h3 {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .share-modal-close {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-input);
+            border: none;
+            border-radius: 50%;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .share-options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .share-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 8px;
+            background: var(--bg-input);
+            border-radius: var(--radius-md);
+            border: none;
+            color: var(--text-light);
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .share-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .share-option i { font-size: 28px; }
+        .share-option span { font-size: 12px; font-weight: 600; }
+
+        .share-option.whatsapp i { color: #25D366; }
+        .share-option.facebook i { color: #1877F2; }
+        .share-option.twitter i { color: #1DA1F2; }
+        .share-option.telegram i { color: #0088cc; }
+        .share-option.copy i { color: var(--primary); }
+
+        .share-url-preview input {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            color: var(--text-muted);
+            font-size: 12px;
+            outline: none;
+        }
+
+        /* ============ EMPTY STATE ============ */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 72px;
+            color: var(--border);
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .btn-home {
+            background: var(--primary);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        /* ============ TOAST ============ */
+        .kmca-toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--success);
+            color: white;
+            padding: 14px 24px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 99999;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 90%;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 76px 8px 20px;
+            }
+            
+            .masomo-title {
+                font-size: 20px;
+            }
+            
+            .masomo-body {
+                padding: 20px 16px;
+            }
+            
+            .masomo-header {
+                padding: 32px 16px 24px;
+            }
+            
+            .dominica-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 36px;
+            }
+            
+            .masomo-section-content {
+                font-size: 14px;
+                padding: 14px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- ============ HEADER ============ -->
+    <header class="page-header">
+        <a href="home.html" class="back-btn" id="backBtn">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="page-title">
+            <i class="fas fa-book-open"></i>
+            Masomo
+        </div>
+        <div class="header-spacer"></div>
+    </header>
+    
+    <!-- ============ MAIN CONTENT ============ -->
+    <main class="main-content" id="mainContent">
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Inapakia...</div>
+        </div>
+    </main>
+    
+    <!-- ============ SCRIPTS ============ -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="user-auth.js"></script>
+    <script src="dark-mode.js"></script>
+    
+    <script>
+        // ============================================
+        // MASOMO PAGE - masomo.html
+        // ============================================
+        
+        let currentUser = null;
+        let settings = {};
+        let masomoData = null;
+        let masomoId = '';
+        let comments = [];
+        
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('Masomo page - Initializing');
+            
+            currentUser = getCurrentUser();
+            
+            const params = new URLSearchParams(window.location.search);
+            masomoId = params.get('id');
+            
+            if (!masomoId) {
+                renderError('Masomo haipatikani', 'Link si sahihi');
+                return;
+            }
+            
+            settings = await loadSettings();
+            await loadMasomo();
+            await loadComments();
+            renderMasomo();
+            setupEvents();
+        });
+        
+        // ============ LOAD SETTINGS ============
+        async function loadSettings() {
+            try {
+                const { data } = await supabaseClient
+                    .from('app_settings')
+                    .select('setting_key, setting_value');
+                
+                const obj = {};
+                (data || []).forEach(s => {
+                    obj[s.setting_key] = s.setting_value;
+                });
+                
+                return obj;
+            } catch (e) {
+                return {};
+            }
+        }
+        
+        // ============ LOAD MASOMO ============
+        async function loadMasomo() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('masomo_dominica')
+                    .select('*')
+                    .eq('id', masomoId)
+                    .single();
+                
+                if (error || !data) {
+                    renderError('Masomo haipatikani', 'Huenda imefutwa au link si sahihi');
+                    return;
+                }
+                
+                masomoData = data;
+                console.log('Masomo loaded:', data);
+                
+            } catch (e) {
+                console.error('Load masomo error:', e);
+                renderError('Imeshindikana', 'Tafadhali jaribu tena');
+            }
+        }
+        
+        // ============ LOAD COMMENTS ============
+        async function loadComments() {
+            try {
+                const { data } = await supabaseClient
+                    .from('comments')
+                    .select('*, users(jina, profile_picture)')
+                    .eq('content_type', 'masomo')
+                    .eq('content_id', masomoId)
+                    .order('created_at', { ascending: false })
+                    .limit(50);
+                
+                comments = data || [];
+            } catch (e) {
+                comments = [];
+            }
+        }
+        
+        // ============ RENDER MASOMO ============
+        function renderMasomo() {
+            const main = document.getElementById('mainContent');
+            
+            const jinaDominika = masomoData.jina_dominika || '';
+            const numberMatch = jinaDominika.match(/\d+/);
+            const dominikaNumber = numberMatch ? numberMatch[0] : null;
+            
+            let iconHtml = '';
+            if (dominikaNumber) {
+                iconHtml = `<div class="dominica-icon">${dominikaNumber}</div>`;
+            } else {
+                iconHtml = `<div class="dominica-icon text-icon"><i class="fas fa-book-open"></i></div>`;
+            }
+            
+            let dateHtml = '';
+            if (masomoData.tarehe_jumapili) {
+                const dateFormatted = new Date(masomoData.tarehe_jumapili).toLocaleDateString('sw-TZ', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+                
+                dateHtml = `
+                    <div class="masomo-date">
+                        <i class="fas fa-calendar"></i>
+                        ${dateFormatted}
+                    </div>
+                `;
+            }
+            
+            let sectionsHtml = '';
+            
+            if (masomoData.somo_1) {
+                sectionsHtml += `
+                    <div class="masomo-section somo1">
+                        <div class="masomo-section-header">
+                            <div class="masomo-section-icon">
+                                <i class="fas fa-book-reader"></i>
+                            </div>
+                            <div class="masomo-section-title">Somo la 1</div>
+                        </div>
+                        <div class="masomo-section-content">${escapeHtml(masomoData.somo_1)}</div>
+                    </div>
+                `;
+            }
+            
+            if (masomoData.wimbo_katikati) {
+                sectionsHtml += `
+                    <div class="masomo-section wimbo">
+                        <div class="masomo-section-header">
+                            <div class="masomo-section-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="masomo-section-title">Wimbo wa Katikati</div>
+                        </div>
+                        <div class="masomo-section-content">${escapeHtml(masomoData.wimbo_katikati)}</div>
+                    </div>
+                `;
+            }
+            
+            if (masomoData.somo_2) {
+                sectionsHtml += `
+                    <div class="masomo-section somo2">
+                        <div class="masomo-section-header">
+                            <div class="masomo-section-icon">
+                                <i class="fas fa-book-reader"></i>
+                            </div>
+                            <div class="masomo-section-title">Somo la 2</div>
+                        </div>
+                        <div class="masomo-section-content">${escapeHtml(masomoData.somo_2)}</div>
+                    </div>
+                `;
+            }
+            
+            if (masomoData.shangilio) {
+                sectionsHtml += `
+                    <div class="masomo-section shangilio">
+                        <div class="masomo-section-header">
+                            <div class="masomo-section-icon">
+                                <i class="fas fa-hands-praying"></i>
+                            </div>
+                            <div class="masomo-section-title">Shangilio</div>
+                        </div>
+                        <div class="masomo-section-content">${escapeHtml(masomoData.shangilio)}</div>
+                    </div>
+                `;
+            }
+            
+            if (masomoData.injili) {
+                sectionsHtml += `
+                    <div class="masomo-section injili">
+                        <div class="masomo-section-header">
+                            <div class="masomo-section-icon">
+                                <i class="fas fa-cross"></i>
+                            </div>
+                            <div class="masomo-section-title">Injili</div>
+                        </div>
+                        <div class="masomo-section-content">${escapeHtml(masomoData.injili)}</div>
+                    </div>
+                `;
+            }
+            
+            const html = `
+                <div class="masomo-card">
+                    <div class="masomo-header">
+                        ${iconHtml}
+                        <h1 class="masomo-title">${escapeHtml(masomoData.jina_dominika)}</h1>
+                        ${dateHtml}
+                    </div>
+                    
+                    ${sectionsHtml ? `<div class="masomo-body">${sectionsHtml}</div>` : ''}
+                    
+                    <div class="masomo-actions">
+                        <button class="masomo-action masomo-like-btn">
+                            <i class="far fa-heart"></i>
+                            <span class="like-count">0</span>
+                        </button>
+                        <button class="masomo-action masomo-comment-btn">
+                            <i class="far fa-comment"></i>
+                            <span class="comment-count">${comments.length}</span>
+                        </button>
+                        <button class="masomo-action masomo-share-btn">
+                            <i class="fas fa-share"></i>
+                            <span class="share-count">0</span>
+                        </button>
+                        <button class="masomo-action masomo-download-btn">
+                            <i class="fas fa-download"></i>
+                            <span class="download-count">0</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            main.innerHTML = html;
+            
+            loadCounts();
+            
+            if (currentUser) {
+                loadUserLike();
+            }
+        }
+        
+        // ============ LOAD COUNTS ============
+        async function loadCounts() {
+            try {
+                const { count: likeCount } = await supabaseClient
+                    .from('content_likes')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('content_type', 'masomo')
+                    .eq('content_id', masomoId);
+                
+                const likeEl = document.querySelector('.like-count');
+                if (likeEl) likeEl.textContent = likeCount || 0;
+                
+                const { count: shareCount } = await supabaseClient
+                    .from('content_shares')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('content_type', 'masomo')
+                    .eq('content_id', masomoId);
+                
+                const shareEl = document.querySelector('.share-count');
+                if (shareEl) shareEl.textContent = shareCount || 0;
+                
+                const { count: downloadCount } = await supabaseClient
+                    .from('content_downloads')
+                    .select('*', { count: 'exact', head: true })
+                    .eq('content_type', 'masomo')
+                    .eq('content_id', masomoId);
+                
+                const downloadEl = document.querySelector('.download-count');
+                if (downloadEl) downloadEl.textContent = downloadCount || 0;
+            } catch (e) {}
+        }
+        
+        // ============ LOAD USER LIKE ============
+        async function loadUserLike() {
+            try {
+                const { data } = await supabaseClient
+                    .from('content_likes')
+                    .select('id')
+                    .eq('user_id', currentUser.id)
+                    .eq('content_type', 'masomo')
+                    .eq('content_id', masomoId)
+                    .maybeSingle();
+                
+                if (data) {
+                    const btn = document.querySelector('.masomo-like-btn');
+                    if (btn) {
+                        btn.classList.add('liked');
+                        btn.querySelector('i').className = 'fas fa-heart';
+                    }
+                }
+            } catch (e) {}
+        }
+        
+        // ============ SETUP EVENTS ============
+        function setupEvents() {
+            // ✅ Back button - RUDI HOME.HTML
+            document.getElementById('backBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'home.html';
+            });
+            
+            const likeBtn = document.querySelector('.masomo-like-btn');
+            if (likeBtn) {
+                likeBtn.addEventListener('click', async function() {
+                    if (!currentUser) {
+                        showToast('Ingia ili ku-like', 'warning');
+                        return;
+                    }
+                    await toggleLike(this);
+                });
+            }
+            
+            const commentBtn = document.querySelector('.masomo-comment-btn');
+            if (commentBtn) {
+                commentBtn.addEventListener('click', openCommentsModal);
+            }
+            
+            const shareBtn = document.querySelector('.masomo-share-btn');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', shareContent);
+            }
+            
+            const downloadBtn = document.querySelector('.masomo-download-btn');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', showDownloadOptions);
+            }
+        }
+        
+        // ============ TOGGLE LIKE ============
+        async function toggleLike(btn) {
+            try {
+                const { data: existing } = await supabaseClient
+                    .from('content_likes')
+                    .select('id')
+                    .eq('user_id', currentUser.id)
+                    .eq('content_type', 'masomo')
+                    .eq('content_id', masomoId)
+                    .maybeSingle();
+                
+                if (existing) {
+                    await supabaseClient.from('content_likes').delete().eq('id', existing.id);
+                    btn.classList.remove('liked');
+                    btn.querySelector('i').className = 'far fa-heart';
+                } else {
+                    await supabaseClient.from('content_likes').insert([{
+                        user_id: currentUser.id,
+                        content_type: 'masomo',
+                        content_id: masomoId
+                    }]);
+                    btn.classList.add('liked');
+                    btn.querySelector('i').className = 'fas fa-heart';
+                }
+                
+                await loadCounts();
+            } catch (e) {}
+        }
+        
+        // ============ OPEN COMMENTS MODAL ============
+        function openCommentsModal() {
+            const existing = document.getElementById('commentsModal');
+            if (existing) existing.remove();
+            
+            const modal = document.createElement('div');
+            modal.id = 'commentsModal';
+            modal.className = 'comments-modal active';
+            
+            let commentsHtml = comments.length === 0
+                ? `<div class="no-comments"><i class="fas fa-comments"></i>Hakuna comments bado</div>`
+                : `<div class="comments-list">${comments.map(renderComment).join('')}</div>`;
+            
+            let footerHtml = currentUser
+                ? `
+                    <div class="comments-modal-footer">
+                        <div class="comment-input-container">
+                            <input type="text" class="comment-input" id="commentInput" placeholder="Andika comment...">
+                            <button class="btn-send-comment" id="sendCommentBtn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                `
+                : `
+                    <div class="comments-modal-footer">
+                        <div class="login-prompt">
+                            <i class="fas fa-user-circle"></i>
+                            <p>Jiandikishe ili ku-comment</p>
+                            <button class="btn-login-prompt" onclick="window.location.href='index.html'">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Ingia
+                            </button>
+                        </div>
+                    </div>
+                `;
+            
+            modal.innerHTML = `
+                <div class="comments-modal-content">
+                    <div class="comments-modal-header">
+                        <h3><i class="fas fa-comments"></i> Comments (${comments.length})</h3>
+                        <button class="comments-modal-close" id="commentsModalClose">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="comments-modal-body" id="commentsModalBody">
+                        ${commentsHtml}
+                    </div>
+                    ${footerHtml}
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            document.getElementById('commentsModalClose').addEventListener('click', () => modal.remove());
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) modal.remove();
+            });
+            
+            if (currentUser) {
+                const sendBtn = document.getElementById('sendCommentBtn');
+                const input = document.getElementById('commentInput');
+                
+                if (sendBtn) sendBtn.addEventListener('click', sendComment);
+                if (input) {
+                    input.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') sendComment();
+                    });
+                }
+            }
+        }
+        
+        // ============ RENDER COMMENT ============
+        function renderComment(comment) {
+            const user = comment.users || {};
+            const initials = generateInitials(user.jina);
+            
+            const avatarHtml = user.profile_picture
+                ? `<img src="${user.profile_picture}" alt="${user.jina}">`
+                : initials;
+            
+            return `
+                <div class="comment-item">
+                    <div class="comment-avatar">${avatarHtml}</div>
+                    <div class="comment-body">
+                        <div class="comment-header">
+                            <span class="comment-author">${escapeHtml(user.jina || 'Mtumiaji')}</span>
+                            <span class="comment-time">${getTimeAgo(comment.created_at)}</span>
+                        </div>
+                        <div class="comment-text">${escapeHtml(comment.content)}</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // ============ SEND COMMENT ============
+        async function sendComment() {
+            if (!currentUser) return;
+            
+            const input = document.getElementById('commentInput');
+            const content = input.value.trim();
+            
+            if (!content) return;
+            
+            const btn = document.getElementById('sendCommentBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            
+            try {
+                await supabaseClient.from('comments').insert([{
+                    user_id: currentUser.id,
+                    content_type: 'masomo',
+                    content_id: masomoId,
+                    content: content
+                }]);
+                
+                input.value = '';
+                await loadComments();
+                
+                const body = document.getElementById('commentsModalBody');
+                if (body) {
+                    body.innerHTML = comments.length === 0
+                        ? '<div class="no-comments"><i class="fas fa-comments"></i>Hakuna comments bado</div>'
+                        : `<div class="comments-list">${comments.map(renderComment).join('')}</div>`;
+                }
+                
+                const countEl = document.querySelector('.comment-count');
+                if (countEl) countEl.textContent = comments.length;
+                
+                showToast('Comment imetumwa!', 'success');
+            } catch (e) {
+                showToast('Imeshindikana', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-paper-plane"></i>';
+            }
+        }
+        
+        // ============ SHARE CONTENT ============
+        async function shareContent() {
+            try {
+                const baseUrl = settings.share_link || window.location.origin;
+                const pagePath = settings.share_page_path || '/share.html';
+                const shareUrl = `${baseUrl}${pagePath}?type=masomo&id=${masomoId}`;
+                
+                if (currentUser) {
+                    await supabaseClient.from('content_shares').insert([{
+                        user_id: currentUser.id,
+                        content_type: 'masomo',
+                        content_id: masomoId
+                    }]);
+                    await loadCounts();
+                }
+                
+                showShareOptions(shareUrl, `Masomo: ${masomoData.jina_dominika}`);
+            } catch (e) {}
+        }
+        
+        // ============ SHOW SHARE OPTIONS ============
+        function showShareOptions(shareUrl, title) {
+            const existing = document.getElementById('shareOptionsModal');
+            if (existing) existing.remove();
+            
+            const modal = document.createElement('div');
+            modal.id = 'shareOptionsModal';
+            modal.className = 'share-modal';
+            modal.innerHTML = `
+                <div class="share-modal-content">
+                    <div class="share-modal-header">
+                        <h3>Share kwa</h3>
+                        <button class="share-modal-close" onclick="document.getElementById('shareOptionsModal').remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="share-options-grid">
+                        <a href="https://wa.me/?text=${encodeURIComponent(title + ' - ' + shareUrl)}" target="_blank" class="share-option whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" class="share-option facebook">
+                            <i class="fab fa-facebook"></i>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}" target="_blank" class="share-option twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                        <a href="https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}" target="_blank" class="share-option telegram">
+                            <i class="fab fa-telegram"></i>
+                            <span>Telegram</span>
+                        </a>
+                        <button class="share-option copy" onclick="copyShareLink('${shareUrl}')">
+                            <i class="fas fa-link"></i>
+                            <span>Copy Link</span>
+                        </button>
+                    </div>
+                    
+                    <div class="share-url-preview">
+                        <input type="text" value="${shareUrl}" readonly onclick="this.select()">
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) modal.remove();
+            });
+        }
+        
+        // ============ COPY SHARE LINK ============
+        async function copyShareLink(url) {
+            try {
+                await navigator.clipboard.writeText(url);
+                showToast('Link imecopywa!', 'success');
+                document.getElementById('shareOptionsModal')?.remove();
+            } catch (e) {
+                const input = document.createElement('input');
+                input.value = url;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('Link imecopywa!', 'success');
+            }
+        }
+        
+        // ============ SHOW DOWNLOAD OPTIONS ============
+        function showDownloadOptions() {
+            const existing = document.getElementById('downloadOptionsModal');
+            if (existing) existing.remove();
+            
+            const modal = document.createElement('div');
+            modal.id = 'downloadOptionsModal';
+            modal.className = 'share-modal';
+            modal.innerHTML = `
+                <div class="share-modal-content">
+                    <div class="share-modal-header">
+                        <h3>Download</h3>
+                        <button class="share-modal-close" onclick="document.getElementById('downloadOptionsModal').remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <button class="share-option" onclick="downloadAsImage()" style="padding: 20px 12px;">
+                            <i class="fas fa-image" style="color: #06b6d4;"></i>
+                            <span>Picha</span>
+                        </button>
+                        <button class="share-option" onclick="downloadAsText()" style="padding: 20px 12px;">
+                            <i class="fas fa-file-alt" style="color: #10b981;"></i>
+                            <span>Text</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) modal.remove();
+            });
+        }
+        
+        // ============ DOWNLOAD AS IMAGE ============
+        async function downloadAsImage() {
+            document.getElementById('downloadOptionsModal')?.remove();
+            
+            try {
+                showToast('Inaandaa picha...', 'info');
+                
+                if (currentUser) {
+                    await supabaseClient.from('content_downloads').insert([{
+                        user_id: currentUser.id,
+                        content_type: 'masomo',
+                        content_id: masomoId
+                    }]);
+                    await loadCounts();
+                }
+                
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                canvas.width = 1080;
+                canvas.height = 1920;
+                
+                const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+                gradient.addColorStop(0, '#020617');
+                gradient.addColorStop(0.5, '#041f2a');
+                gradient.addColorStop(1, '#020617');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                ctx.fillStyle = 'rgba(6, 182, 212, 0.08)';
+                ctx.beginPath();
+                ctx.arc(200, 300, 400, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.arc(900, 1600, 350, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+                roundRect(ctx, 60, 200, canvas.width - 120, canvas.height - 400, 30);
+                ctx.fill();
+                
+                ctx.strokeStyle = '#06b6d4';
+                ctx.lineWidth = 3;
+                roundRect(ctx, 60, 200, canvas.width - 120, canvas.height - 400, 30);
+                ctx.stroke();
+                
+                let yPos = 320;
+                
+                const jinaDominika = masomoData.jina_dominika || '';
+                const numberMatch = jinaDominika.match(/\d+/);
+                const dominikaNumber = numberMatch ? numberMatch[0] : null;
+                
+                if (dominikaNumber) {
+                    ctx.fillStyle = 'rgba(6, 182, 212, 0.2)';
+                    ctx.beginPath();
+                    ctx.arc(canvas.width / 2, yPos + 60, 90, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.strokeStyle = '#06b6d4';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.arc(canvas.width / 2, yPos + 60, 90, 0, Math.PI * 2);
+                    ctx.stroke();
+                    
+                    ctx.fillStyle = '#06b6d4';
+                    ctx.font = 'bold 100px -apple-system, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(dominikaNumber, canvas.width / 2, yPos + 60);
+                    yPos += 200;
+                } else {
+                    ctx.font = '100px -apple-system, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('📚', canvas.width / 2, yPos + 60);
+                    yPos += 200;
+                }
+                
+                ctx.fillStyle = '#d4af37';
+                ctx.font = 'bold 42px -apple-system, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'alphabetic';
+                wrapText(ctx, jinaDominika, canvas.width / 2, yPos, canvas.width - 200, 50);
+                yPos += 80;
+                
+                if (masomoData.tarehe_jumapili) {
+                    ctx.fillStyle = '#06b6d4';
+                    ctx.font = 'bold 28px -apple-system, sans-serif';
+                    const dateFormatted = new Date(masomoData.tarehe_jumapili).toLocaleDateString('sw-TZ', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    });
+                    ctx.fillText('📅 ' + dateFormatted, canvas.width / 2, yPos);
+                    yPos += 60;
+                }
+                
+                const sections = [
+                    { title: '📖 SOMO LA 1', content: masomoData.somo_1 },
+                    { title: '🎵 WIMBO WA KATIKATI', content: masomoData.wimbo_katikati },
+                    { title: '📖 SOMO LA 2', content: masomoData.somo_2 },
+                    { title: '🙌 SHANGILIO', content: masomoData.shangilio },
+                    { title: '✝️ INJILI', content: masomoData.injili }
+                ];
+                
+                for (const section of sections) {
+                    if (!section.content) continue;
+                    
+                    yPos += 20;
+                    
+                    ctx.fillStyle = '#06b6d4';
+                    ctx.font = 'bold 26px -apple-system, sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText(section.title, 100, yPos);
+                    yPos += 40;
+                    
+                    ctx.fillStyle = '#f8fafc';
+                    ctx.font = '22px -apple-system, sans-serif';
+                    const shortContent = section.content.substring(0, 200);
+                    yPos = wrapText(ctx, shortContent, 100, yPos, canvas.width - 200, 32);
+                    yPos += 20;
+                    
+                    if (yPos > canvas.height - 250) break;
+                }
+                
+                ctx.fillStyle = 'rgba(212, 175, 55, 0.9)';
+                ctx.font = 'bold 28px -apple-system, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Kwaya ya Mtakatifu Carlo Acutis', canvas.width / 2, canvas.height - 100);
+                ctx.fillStyle = '#d4af37';
+                ctx.font = 'bold 42px -apple-system, sans-serif';
+                ctx.fillText('KMCA', canvas.width / 2, canvas.height - 50);
+                
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `Masomo-${jinaDominika.replace(/\s+/g, '-')}.png`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                    
+                    showToast('Download imekamilika!', 'success');
+                }, 'image/png');
+                
+            } catch (e) {
+                console.error('Download image error:', e);
+                showToast('Imeshindikana', 'error');
+            }
+        }
+        
+        // ============ DOWNLOAD AS TEXT ============
+        async function downloadAsText() {
+            document.getElementById('downloadOptionsModal')?.remove();
+            
+            try {
+                if (currentUser) {
+                    await supabaseClient.from('content_downloads').insert([{
+                        user_id: currentUser.id,
+                        content_type: 'masomo',
+                        content_id: masomoId
+                    }]);
+                    await loadCounts();
+                }
+                
+                let text = '';
+                text += '════════════════════════════════\n';
+                text += '   KMCA - MASOMO YA DOMINICA\n';
+                text += '   Kwaya ya Mtakatifu Carlo Acutis\n';
+                text += '════════════════════════════════\n\n';
+                text += `📚 ${masomoData.jina_dominika}\n\n`;
+                
+                if (masomoData.tarehe_jumapili) {
+                    const dateFormatted = new Date(masomoData.tarehe_jumapili).toLocaleDateString('sw-TZ', {
+                        weekday: 'long',
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    });
+                    text += `📅 ${dateFormatted}\n\n`;
+                }
+                
+                if (masomoData.somo_1) {
+                    text += '─────────────────────────────────\n';
+                    text += '📖 SOMO LA 1\n';
+                    text += '─────────────────────────────────\n';
+                    text += masomoData.somo_1 + '\n\n';
+                }
+                
+                if (masomoData.wimbo_katikati) {
+                    text += '─────────────────────────────────\n';
+                    text += '🎵 WIMBO WA KATIKATI\n';
+                    text += '─────────────────────────────────\n';
+                    text += masomoData.wimbo_katikati + '\n\n';
+                }
+                
+                if (masomoData.somo_2) {
+                    text += '─────────────────────────────────\n';
+                    text += '📖 SOMO LA 2\n';
+                    text += '─────────────────────────────────\n';
+                    text += masomoData.somo_2 + '\n\n';
+                }
+                
+                if (masomoData.shangilio) {
+                    text += '─────────────────────────────────\n';
+                    text += '🙌 SHANGILIO\n';
+                    text += '─────────────────────────────────\n';
+                    text += masomoData.shangilio + '\n\n';
+                }
+                
+                if (masomoData.injili) {
+                    text += '─────────────────────────────────\n';
+                    text += '✝️ INJILI\n';
+                    text += '─────────────────────────────────\n';
+                    text += masomoData.injili + '\n\n';
+                }
+                
+                text += '════════════════════════════════\n';
+                text += '© 2026 KMCA\n';
+                text += '════════════════════════════════\n';
+                
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `Masomo-${masomoData.jina_dominika.replace(/\s+/g, '-')}.txt`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
+                showToast('Download imekamilika!', 'success');
+                
+            } catch (e) {
+                console.error('Download text error:', e);
+                showToast('Imeshindikana', 'error');
+            }
+        }
+        
+        // ============ CANVAS HELPERS ============
+        function roundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+        
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+            const paragraphs = text.split('\n');
+            let currentY = y;
+            
+            paragraphs.forEach(paragraph => {
+                const words = paragraph.split(' ');
+                let line = '';
+                
+                words.forEach(word => {
+                    const testLine = line + word + ' ';
+                    const metrics = ctx.measureText(testLine);
+                    
+                    if (metrics.width > maxWidth && line !== '') {
+                        ctx.fillText(line, x, currentY);
+                        line = word + ' ';
+                        currentY += lineHeight;
+                    } else {
+                        line = testLine;
+                    }
+                });
+                
+                ctx.fillText(line, x, currentY);
+                currentY += lineHeight;
+            });
+            
+            return currentY;
+        }
+        
+        // ============ RENDER ERROR ============
+        function renderError(title, message) {
+            const main = document.getElementById('mainContent');
+            main.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-book-open"></i>
+                    <h3>${title}</h3>
+                    <p>${message}</p>
+                    <button class="btn-home" onclick="window.location.href='home.html'">
+                        <i class="fas fa-home"></i>
+                        Rudi Home
+                    </button>
+                </div>
+            `;
+        }
+        
+        // ============ HELPERS ============
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function generateInitials(jina) {
+            if (!jina) return '??';
+            const cleaned = jina.trim().replace(/\s+/g, ' ');
+            const names = cleaned.split(' ');
+            
+            if (names.length >= 2) {
+                return (names[0].charAt(0) + names[1].charAt(0)).toUpperCase();
+            }
+            if (names.length === 1 && names[0].length >= 2) {
+                return names[0].substring(0, 2).toUpperCase();
+            }
+            return '??';
+        }
+        
+        function getTimeAgo(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            const now = new Date();
+            const seconds = Math.floor((now - date) / 1000);
+            
+            if (seconds < 60) return 'Sasa hivi';
+            if (seconds < 3600) return Math.floor(seconds / 60) + 'm';
+            if (seconds < 86400) return Math.floor(seconds / 3600) + 'h';
+            if (seconds < 604800) return Math.floor(seconds / 86400) + 'd';
+            
+            return date.toLocaleDateString('sw-TZ', { day: 'numeric', month: 'short' });
+        }
+    </script>
+</body>
+</html>

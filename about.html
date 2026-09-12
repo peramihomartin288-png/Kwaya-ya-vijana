@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#020617">
+    <title>About - KMCA</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="user-icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="KMCA">
+    <link rel="icon" href="favicon.ico">
+    
+    <style>
+        /* ============ CSS VARIABLES ============ */
+        :root {
+            --primary: #d4af37;
+            --primary-dark: #b8962e;
+            --primary-light: #f0d060;
+            --bg-dark: #020617;
+            --bg-card: #0f172a;
+            --bg-input: #1e293b;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --error: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ============ LIGHT MODE ============ */
+        [data-theme="light"] {
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-input: #f1f5f9;
+            --text-light: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-top: 120px;
+            padding-bottom: 40px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* ============ HEADER ============ */
+        .page-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn {
+            width: 42px;
+            height: 42px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-light);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateX(-2px);
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-title i {
+            color: var(--primary);
+        }
+
+        .header-spacer {
+            width: 42px;
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        .main-content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px 16px;
+        }
+
+        /* ============ LOADING ============ */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            gap: 16px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--bg-input);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* ============ ABOUT CARD ============ */
+        .about-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============ ABOUT HERO ============ */
+        .about-hero {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+            padding: 40px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .about-logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 44px;
+            color: var(--bg-dark);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4);
+            animation: logoPulse 3s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        .about-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .about-title {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .about-subtitle {
+            font-size: 15px;
+            color: var(--primary);
+            font-weight: 700;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============ ABOUT BODY ============ */
+        .about-body {
+            padding: 28px 24px;
+        }
+
+        .about-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-light);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            margin-bottom: 24px;
+        }
+
+        /* ============ ABOUT IMAGE ============ */
+        .about-image {
+            width: 100%;
+            border-radius: var(--radius-md);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            display: block;
+            border-radius: var(--radius-md);
+        }
+
+        /* ============ INFO GRID ============ */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .info-card {
+            background: var(--bg-input);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .info-card-icon {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 10px;
+            background: rgba(212, 175, 55, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .info-card-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .info-card-value {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        /* ============ SOCIAL LINKS ============ */
+        .social-section {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .social-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .social-link:hover {
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .social-link.facebook { background: #1877F2; }
+        .social-link.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .social-link.youtube { background: #FF0000; }
+        .social-link.tiktok { background: #000000; }
+
+        /* ============ EMPTY STATE ============ */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            color: var(--border);
+            margin-bottom: 16px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        /* ============ FOOTER ============ */
+        .page-footer {
+            text-align: center;
+            padding: 30px 20px 20px;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .page-footer p {
+            margin-bottom: 4px;
+        }
+
+        /* ============ VERSION BADGE ============ */
+        .version-badge {
+            display: inline-block;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+
+        .version-badge i {
+            color: var(--primary);
+            margin-right: 4px;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 16px 12px;
+            }
+            
+            .about-hero {
+                padding: 32px 20px;
+            }
+            
+            .about-logo {
+                width: 80px;
+                height: 80px;
+                font-size: 36px;
+            }
+            
+            .about-title {
+                font-size: 22px;
+            }
+            
+            .about-body {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- ============ HEADER ============ -->
+    <header class="page-header">
+        <a href="home.html" class="back-btn" id="backBtn">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="page-title">
+            <i class="fas fa-info-circle"></i>
+            About
+        </div>
+        <div class="header-spacer"></div>
+    </header>
+    
+    <!-- ============ MAIN CONTENT ============ -->
+    <main class="main-content" id="mainContent">
+        <!-- Loading -->
+        <div class="loading-container" id="loadingContainer">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Inapakia...</div>
+        </div>
+    </main>
+    
+    <!-- ============ FOOTER ============ -->
+    <footer class="page-footer" id="pageFooter"></footer>
+    
+    <!-- ============ SCRIPTS ============ -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="user-auth.js"></script>
+    <script src="dark-mode.js"></script>
+    
+    <script>
+        // ============================================
+        // ABOUT PAGE - about.html
+        // ============================================
+        
+        let settings = {};
+        
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('About page - Initializing');
+            
+            // Check user
+            const user = getCurrentUser();
+            if (!user) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Load settings
+            settings = await loadSettings();
+            
+            // Load about data
+            await loadAbout();
+            
+            // Load footer
+            await loadFooter();
+            
+            // ✅ Setup back button - RUDI HOME.HTML
+            document.getElementById('backBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'home.html';
+            });
+        });
+        
+        // ============ LOAD SETTINGS ============
+        async function loadSettings() {
+            try {
+                const { data } = await supabaseClient
+                    .from('app_settings')
+                    .select('setting_key, setting_value');
+                
+                const settingsObj = {};
+                (data || []).forEach(s => {
+                    settingsObj[s.setting_key] = s.setting_value;
+                });
+                
+                return settingsObj;
+            } catch (e) {
+                console.error('Load settings error:', e);
+                return {};
+            }
+        }
+        
+        // ============ LOAD ABOUT ============
+        async function loadAbout() {
+            const container = document.getElementById('mainContent');
+            
+            try {
+                // Load about content
+                const { data: aboutData, error: aboutError } = await supabaseClient
+                    .from('about')
+                    .select('*')
+                    .limit(1)
+                    .maybeSingle();
+                
+                // Load social links
+                const socialLinks = {
+                    facebook: settings.social_facebook || '',
+                    instagram: settings.social_instagram || '',
+                    youtube: settings.social_youtube || '',
+                    tiktok: settings.social_tiktok || ''
+                };
+                
+                // Build HTML
+                const logoUrl = settings.intro_logo || '';
+                const appName = settings.app_name || 'KMCA';
+                const appSubtitle = settings.app_subtitle || 'Kwaya ya Vijana Mtakatifu Carlo Acutis';
+                
+                const logoHtml = logoUrl 
+                    ? `<img src="${logoUrl}" alt="${appName}">`
+                    : '<i class="fas fa-church"></i>';
+                
+                let aboutHtml = '';
+                
+                if (aboutData && (aboutData.title || aboutData.content)) {
+                    // About ipo kwenye database
+                    aboutHtml = `
+                        <div class="about-card">
+                            <div class="about-hero">
+                                <div class="about-logo">${logoHtml}</div>
+                                <h1 class="about-title">${aboutData.title || appName}</h1>
+                                <p class="about-subtitle">${appSubtitle}</p>
+                            </div>
+                            
+                            <div class="about-body">
+                                ${aboutData.image_file ? `
+                                    <div class="about-image">
+                                        <img src="${aboutData.image_file}" alt="About">
+                                    </div>
+                                ` : ''}
+                                
+                                ${aboutData.content ? `
+                                    <div class="about-content">${escapeHtml(aboutData.content)}</div>
+                                ` : ''}
+                                
+                                ${renderInfoGrid()}
+                                ${renderSocialLinks(socialLinks)}
+                                
+                                <div style="text-align: center;">
+                                    <div class="version-badge">
+                                        <i class="fas fa-code-branch"></i>
+                                        Version 1.0.0
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Fallback: Default about
+                    aboutHtml = `
+                        <div class="about-card">
+                            <div class="about-hero">
+                                <div class="about-logo">${logoHtml}</div>
+                                <h1 class="about-title">${appName}</h1>
+                                <p class="about-subtitle">${appSubtitle}</p>
+                            </div>
+                            
+                            <div class="about-body">
+                                <div class="about-content">Karibu kwenye ${appName}!
+
+Hii ni app ya Kwaya ya Vijana Mtakatifu Carlo Acutis. Hapa utapata:
+• Posts za kwaya
+• Watakatifu wa kila siku
+• Bible verses
+• Nyimbo za siku
+• Masomo ya Dominica
+• Matukio
+• Polls
+• Matangazo
+
+Asante kwa kuwa sehemu ya kwaya yetu! 🙏</div>
+                                
+                                ${renderInfoGrid()}
+                                ${renderSocialLinks(socialLinks)}
+                                
+                                <div style="text-align: center;">
+                                    <div class="version-badge">
+                                        <i class="fas fa-code-branch"></i>
+                                        Version 1.0.0
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                container.innerHTML = aboutHtml;
+                
+            } catch (error) {
+                console.error('Load about error:', error);
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Imeshindikana kupakia</p>
+                        <p style="font-size: 13px;">Tafadhali jaribu tena</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // ============ RENDER INFO GRID ============
+        function renderInfoGrid() {
+            const mawasiliano = settings.footer_mawasiliano || '';
+            const email = settings.footer_email || '';
+            const phone = settings.footer_phone || '';
+            
+            if (!mawasiliano && !email && !phone) {
+                return '';
+            }
+            
+            let html = '<div class="info-grid">';
+            
+            if (mawasiliano) {
+                html += `
+                    <div class="info-card">
+                        <div class="info-card-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-card-label">Mahali</div>
+                        <div class="info-card-value">${mawasiliano}</div>
+                    </div>
+                `;
+            }
+            
+            if (email) {
+                html += `
+                    <div class="info-card">
+                        <div class="info-card-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-card-label">Email</div>
+                        <div class="info-card-value">${email}</div>
+                    </div>
+                `;
+            }
+            
+            if (phone) {
+                html += `
+                    <div class="info-card">
+                        <div class="info-card-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-card-label">Simu</div>
+                        <div class="info-card-value">${phone}</div>
+                    </div>
+                `;
+            }
+            
+            html += '</div>';
+            
+            return html;
+        }
+        
+        // ============ RENDER SOCIAL LINKS ============
+        function renderSocialLinks(socialLinks) {
+            const hasSocial = socialLinks.facebook || socialLinks.instagram || 
+                             socialLinks.youtube || socialLinks.tiktok;
+            
+            if (!hasSocial) return '';
+            
+            let html = `
+                <div class="social-section">
+                    <div class="social-title">Tufuate</div>
+                    <div class="social-links">
+            `;
+            
+            if (socialLinks.facebook) {
+                html += `
+                    <a href="${socialLinks.facebook}" target="_blank" class="social-link facebook" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                `;
+            }
+            
+            if (socialLinks.instagram) {
+                html += `
+                    <a href="${socialLinks.instagram}" target="_blank" class="social-link instagram" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                `;
+            }
+            
+            if (socialLinks.youtube) {
+                html += `
+                    <a href="${socialLinks.youtube}" target="_blank" class="social-link youtube" title="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                `;
+            }
+            
+            if (socialLinks.tiktok) {
+                html += `
+                    <a href="${socialLinks.tiktok}" target="_blank" class="social-link tiktok" title="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                `;
+            }
+            
+            html += `
+                    </div>
+                </div>
+            `;
+            
+            return html;
+        }
+        
+        // ============ LOAD FOOTER ============
+        async function loadFooter() {
+            try {
+                const { data } = await supabaseClient
+                    .from('footer')
+                    .select('*')
+                    .limit(1)
+                    .maybeSingle();
+                
+                const footer = document.getElementById('pageFooter');
+                if (!footer) return;
+                
+                if (data) {
+                    footer.innerHTML = `
+                        <p>${data.copyright || '© 2026 KMCA'}</p>
+                    `;
+                } else {
+                    footer.innerHTML = '<p>© 2026 KMCA - Kwaya ya Vijana Mtakatifu Carlo Acutis</p>';
+                }
+            } catch (e) {
+                console.log('Footer load error:', e);
+            }
+        }
+        
+        // ============ HELPERS ============
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
