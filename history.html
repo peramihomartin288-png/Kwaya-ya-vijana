@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#020617">
+    <title>History - KMCA</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="user-icon-180.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="KMCA">
+    <link rel="icon" href="favicon.ico">
+    
+    <style>
+        :root {
+            --primary: #d4af37;
+            --primary-dark: #b8962e;
+            --primary-light: #f0d060;
+            --bg-dark: #020617;
+            --bg-card: #0f172a;
+            --bg-input: #1e293b;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --error: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-input: #f1f5f9;
+            --text-light: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 40px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* ============ HEADER ============ */
+        .page-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .back-btn {
+            width: 42px;
+            height: 42px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-light);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: translateX(-2px);
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-title i {
+            color: var(--primary);
+        }
+
+        .header-spacer {
+            width: 42px;
+        }
+
+        /* ============ MAIN ============ */
+        .main-content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 76px 12px 20px;
+        }
+
+        /* ============ MONTH SCROLLER ============ */
+        .month-scroller {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 12px 4px 16px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 8px;
+        }
+
+        .month-scroller::-webkit-scrollbar {
+            display: none;
+        }
+
+        .month-chip {
+            flex-shrink: 0;
+            padding: 10px 18px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            font-family: inherit;
+        }
+
+        .month-chip:hover {
+            border-color: var(--primary);
+            color: var(--text-light);
+            transform: translateY(-2px);
+        }
+
+        .month-chip.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-color: var(--primary);
+            color: var(--bg-dark);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* ============ LOADING ============ */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            gap: 16px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--bg-input);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* ============ DATE GROUP ============ */
+        .date-group {
+            margin-bottom: 24px;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .date-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 0 4px;
+        }
+
+        .date-header-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(212, 175, 55, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .date-header-text {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ============ HISTORY CARD ============ */
+        .history-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: var(--transition);
+            animation: slideUp 0.3s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .history-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+        }
+
+        .history-card.saint::before { background: #d4af37; }
+        .history-card.bible::before { background: #10b981; }
+        .history-card.song::before { background: #a855f7; }
+        .history-card.masomo::before { background: #06b6d4; }
+
+        .history-card:hover {
+            transform: translateX(4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .history-card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--bg-input);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .history-card-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .history-card-icon.saint { background: rgba(212, 175, 55, 0.15); color: #d4af37; }
+        .history-card-icon.bible { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+        .history-card-icon.song { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+        .history-card-icon.masomo { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
+        .history-card-icon.masomo.number-icon {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .history-card-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .history-card-type {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .history-card-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-light);
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-card-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-card-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .history-action-btn {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        .history-action-btn:hover {
+            background: var(--primary);
+            color: var(--bg-dark);
+            transform: scale(1.1);
+        }
+
+        .history-action-btn.share-btn:hover {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .history-action-btn.download-btn:hover {
+            background: #10b981;
+            color: white;
+        }
+
+        /* ============ EMPTY STATE ============ */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            color: var(--border);
+            margin-bottom: 16px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        /* ============ LOADING OVERLAY ============ */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-overlay .loading-spinner {
+            width: 50px;
+            height: 50px;
+        }
+
+        .loading-overlay-text {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ============ TOAST ============ */
+        .kmca-toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--success);
+            color: white;
+            padding: 14px 24px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 99999;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 90%;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 480px) {
+            .history-card {
+                padding: 12px;
+                gap: 10px;
+            }
+            
+            .history-card-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 18px;
+            }
+            
+            .history-card-title {
+                font-size: 14px;
+            }
+            
+            .history-action-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+            
+            .month-chip {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- ============ HEADER ============ -->
+    <header class="page-header">
+        <a href="home.html" class="back-btn" id="backBtn">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="page-title">
+            <i class="fas fa-history"></i>
+            History
+        </div>
+        <div class="header-spacer"></div>
+    </header>
+    
+    <!-- ============ MAIN CONTENT ============ -->
+    <main class="main-content" id="mainContent">
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Inapakia...</div>
+        </div>
+    </main>
+    
+    <!-- ============ LOADING OVERLAY ============ -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-overlay-text" id="loadingOverlayText">Inapakia...</div>
+    </div>
+    
+    <!-- ============ SCRIPTS ============ -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="user-auth.js"></script>
+    <script src="dark-mode.js"></script>
+    
+    <script>
+        // ============================================
+        // HISTORY PAGE - history.html
+        // ============================================
+        
+        let settings = {};
+        let currentUser = null;
+        let availableMonths = [];
+        let currentMonth = null;
+        
+        const MONTH_NAMES_SW = [
+            'Januari', 'Februari', 'Machi', 'Aprili', 'Mei', 'Juni',
+            'Julai', 'Agosti', 'Septemba', 'Oktoba', 'Novemba', 'Desemba'
+        ];
+        
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('History page - Initializing');
+            
+            // Check user
+            currentUser = getCurrentUser();
+            if (!currentUser) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Load settings
+            settings = await loadSettings();
+            
+            // Load available months
+            await loadAvailableMonths();
+            
+            // Setup events
+            setupEvents();
+        });
+        
+        // ============ LOAD SETTINGS ============
+        async function loadSettings() {
+            try {
+                const { data } = await supabaseClient
+                    .from('app_settings')
+                    .select('setting_key, setting_value');
+                
+                const settingsObj = {};
+                (data || []).forEach(s => {
+                    settingsObj[s.setting_key] = s.setting_value;
+                });
+                
+                return settingsObj;
+            } catch (e) {
+                return {};
+            }
+        }
+        
+        // ============ LOAD AVAILABLE MONTHS ============
+        async function loadAvailableMonths() {
+            try {
+                const months = new Set();
+                
+                // 1. Watakatifu
+                const { data: saints } = await supabaseClient
+                    .from('watakatifu')
+                    .select('sikukuu')
+                    .not('sikukuu', 'is', null);
+                
+                (saints || []).forEach(s => {
+                    if (s.sikukuu) {
+                        months.add(s.sikukuu.substring(0, 7));
+                    }
+                });
+                
+                // 2. Bible
+                const { data: bible } = await supabaseClient
+                    .from('bible_verses')
+                    .select('tarehe')
+                    .not('tarehe', 'is', null);
+                
+                (bible || []).forEach(b => {
+                    if (b.tarehe) {
+                        months.add(b.tarehe.substring(0, 7));
+                    }
+                });
+                
+                // 3. Nyimbo
+                const { data: songs } = await supabaseClient
+                    .from('nyimbo_za_siku')
+                    .select('tarehe')
+                    .not('tarehe', 'is', null);
+                
+                (songs || []).forEach(s => {
+                    if (s.tarehe) {
+                        months.add(s.tarehe.substring(0, 7));
+                    }
+                });
+                
+                // 4. Masomo
+                const { data: masomo } = await supabaseClient
+                    .from('masomo_dominica')
+                    .select('tarehe_jumapili')
+                    .not('tarehe_jumapili', 'is', null);
+                
+                (masomo || []).forEach(m => {
+                    if (m.tarehe_jumapili) {
+                        months.add(m.tarehe_jumapili.substring(0, 7));
+                    }
+                });
+                
+                // Sort months (latest first)
+                availableMonths = Array.from(months).sort().reverse();
+                
+                console.log('Available months:', availableMonths);
+                
+                if (availableMonths.length === 0) {
+                    renderEmptyState('Hakuna history bado');
+                    return;
+                }
+                
+                // Set current month (default: latest)
+                currentMonth = availableMonths[0];
+                
+                // Render months + load content
+                renderMonthsAndContent();
+                
+            } catch (e) {
+                console.error('Load months error:', e);
+                renderEmptyState('Imeshindikana kupakia');
+            }
+        }
+        
+        // ============ RENDER MONTHS + CONTENT ============
+        function renderMonthsAndContent() {
+            const container = document.getElementById('mainContent');
+            
+            const monthsHtml = `
+                <div class="month-scroller" id="monthScroller">
+                    ${availableMonths.map(month => `
+                        <button class="month-chip ${month === currentMonth ? 'active' : ''}" 
+                                data-month="${month}">
+                            ${formatMonth(month)}
+                        </button>
+                    `).join('')}
+                </div>
+                <div id="historyContent">
+                    <div class="loading-container">
+                        <div class="loading-spinner"></div>
+                        <div class="loading-text">Inapakia...</div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = monthsHtml;
+            
+            // Setup month chips
+            document.querySelectorAll('.month-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    const month = this.getAttribute('data-month');
+                    if (month === currentMonth) return;
+                    
+                    document.querySelectorAll('.month-chip').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    currentMonth = month;
+                    loadMonthContent(month);
+                });
+            });
+            
+            // Load current month content
+            loadMonthContent(currentMonth);
+        }
+        
+        // ============ LOAD MONTH CONTENT ============
+        async function loadMonthContent(month) {
+            const contentDiv = document.getElementById('historyContent');
+            contentDiv.innerHTML = `
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Inapakia...</div>
+                </div>
+            `;
+            
+            try {
+                const startDate = `${month}-01`;
+                const endDate = `${month}-31`;
+                
+                const items = [];
+                
+                // 1. Watakatifu
+                const { data: saints } = await supabaseClient
+                    .from('watakatifu')
+                    .select('*')
+                    .gte('sikukuu', startDate)
+                    .lte('sikukuu', endDate);
+                
+                (saints || []).forEach(s => {
+                    items.push({
+                        type: 'saint',
+                        typeLabel: 'Mtakatifu',
+                        date: s.sikukuu,
+                        id: s.id,
+                        title: s.jina,
+                        subtitle: s.historia ? s.historia.substring(0, 60) + '...' : '',
+                        image: s.picha_file,
+                        icon: '🕊️',
+                        link: `watakatifu.html?id=${s.id}`
+                    });
+                });
+                
+                // 2. Bible
+                const { data: bible } = await supabaseClient
+                    .from('bible_verses')
+                    .select('*')
+                    .gte('tarehe', startDate)
+                    .lte('tarehe', endDate);
+                
+                (bible || []).forEach(b => {
+                    items.push({
+                        type: 'bible',
+                        typeLabel: 'Bible Verse',
+                        date: b.tarehe,
+                        id: b.id,
+                        title: b.kichwa,
+                        subtitle: b.reference || '',
+                        icon: '📖',
+                        link: `bible.html?id=${b.id}`
+                    });
+                });
+                
+                // 3. Nyimbo
+                const { data: songs } = await supabaseClient
+                    .from('nyimbo_za_siku')
+                    .select('*')
+                    .gte('tarehe', startDate)
+                    .lte('tarehe', endDate);
+                
+                (songs || []).forEach(s => {
+                    items.push({
+                        type: 'song',
+                        typeLabel: 'Wimbo wa Siku',
+                        date: s.tarehe,
+                        id: s.id,
+                        title: s.jina,
+                        subtitle: s.maelezo || '',
+                        mediaUrl: s.media_file,
+                        icon: '🎵',
+                        link: `wimbo.html?id=${s.id}`
+                    });
+                });
+                
+                // 4. Masomo
+                const { data: masomo } = await supabaseClient
+                    .from('masomo_dominica')
+                    .select('*')
+                    .gte('tarehe_jumapili', startDate)
+                    .lte('tarehe_jumapili', endDate);
+                
+                (masomo || []).forEach(m => {
+                    const jinaDominika = m.jina_dominika || '';
+                    const numberMatch = jinaDominika.match(/\d+/);
+                    const number = numberMatch ? numberMatch[0] : null;
+                    
+                    items.push({
+                        type: 'masomo',
+                        typeLabel: 'Masomo',
+                        date: m.tarehe_jumapili,
+                        id: m.id,
+                        title: jinaDominika,
+                        subtitle: 'Masomo ya Dominica',
+                        number: number,
+                        icon: number ? null : '📚',
+                        link: `masomo.html?id=${m.id}`
+                    });
+                });
+                
+                // Sort by date (latest first)
+                items.sort((a, b) => b.date.localeCompare(a.date));
+                
+                // Render
+                if (items.length === 0) {
+                    contentDiv.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>Hakuna history mwezi huu</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Group by date
+                const grouped = {};
+                items.forEach(item => {
+                    if (!grouped[item.date]) grouped[item.date] = [];
+                    grouped[item.date].push(item);
+                });
+                
+                // Render groups
+                let html = '';
+                Object.keys(grouped).sort().reverse().forEach(date => {
+                    html += `
+                        <div class="date-group">
+                            <div class="date-header">
+                                <div class="date-header-icon">
+                                    <i class="fas fa-calendar-day"></i>
+                                </div>
+                                <div class="date-header-text">${formatDate(date)}</div>
+                            </div>
+                            ${grouped[date].map(item => renderHistoryCard(item)).join('')}
+                        </div>
+                    `;
+                });
+                
+                contentDiv.innerHTML = html;
+                
+                // Setup card events
+                setupCardEvents();
+                
+            } catch (e) {
+                console.error('Load month content error:', e);
+                contentDiv.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Imeshindikana kupakia</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // ============ RENDER HISTORY CARD ============
+        function renderHistoryCard(item) {
+            let iconHtml = '';
+            
+            if (item.type === 'saint' && item.image) {
+                iconHtml = `<img src="${item.image}" alt="${item.title}" onerror="this.parentElement.innerHTML='🕊️'">`;
+            } else if (item.type === 'masomo' && item.number) {
+                iconHtml = `<span class="number-icon">${item.number}</span>`;
+            } else {
+                iconHtml = item.icon || '📌';
+            }
+            
+            const isNumber = item.type === 'masomo' && item.number;
+            
+            return `
+                <div class="history-card ${item.type}" data-id="${item.id}" data-type="${item.type}" data-link="${item.link}" data-media="${item.mediaUrl || ''}" data-title="${escapeAttr(item.title)}">
+                    <div class="history-card-icon ${item.type} ${isNumber ? 'number-icon' : ''}">
+                        ${iconHtml}
+                    </div>
+                    <div class="history-card-info">
+                        <div class="history-card-type">${item.typeLabel}</div>
+                        <div class="history-card-title">${escapeHtml(item.title)}</div>
+                        ${item.subtitle ? `<div class="history-card-subtitle">${escapeHtml(item.subtitle)}</div>` : ''}
+                    </div>
+                    <div class="history-card-actions">
+                        <button class="history-action-btn share-btn" data-action="share" title="Share">
+                            <i class="fas fa-share"></i>
+                        </button>
+                        <button class="history-action-btn download-btn" data-action="download" title="Download">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // ============ SETUP CARD EVENTS ============
+        function setupCardEvents() {
+            document.querySelectorAll('.history-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.closest('.history-action-btn')) return;
+                    
+                    const link = this.getAttribute('data-link');
+                    if (link) window.location.href = link;
+                });
+                
+                const shareBtn = card.querySelector('.share-btn');
+                if (shareBtn) {
+                    shareBtn.addEventListener('click', async function(e) {
+                        e.stopPropagation();
+                        
+                        const contentType = card.getAttribute('data-type');
+                        const contentId = card.getAttribute('data-id');
+                        const title = card.getAttribute('data-title');
+                        
+                        await shareContent(contentType, contentId, title);
+                    });
+                }
+                
+                const downloadBtn = card.querySelector('.download-btn');
+                if (downloadBtn) {
+                    downloadBtn.addEventListener('click', async function(e) {
+                        e.stopPropagation();
+                        
+                        const contentType = card.getAttribute('data-type');
+                        const contentId = card.getAttribute('data-id');
+                        const mediaUrl = card.getAttribute('data-media');
+                        
+                        await downloadContent(this, contentType, contentId, mediaUrl);
+                    });
+                }
+            });
+        }
+        
+        // ============ SHARE CONTENT ============
+        async function shareContent(contentType, contentId, title) {
+            try {
+                const baseUrl = settings.share_link || window.location.origin;
+                const pagePath = settings.share_page_path || '/share.html';
+                const shareUrl = `${baseUrl}${pagePath}?type=${contentType}&id=${contentId}`;
+                
+                await supabaseClient.from('content_shares').insert([{
+                    user_id: currentUser.id,
+                    content_type: contentType,
+                    content_id: contentId
+                }]);
+                
+                showShareOptions(shareUrl, title);
+                
+            } catch (e) {
+                console.error('Share error:', e);
+                showToast('Imeshindikana kushare', 'error');
+            }
+        }
+        
+        // ============ SHOW SHARE OPTIONS ============
+        function showShareOptions(shareUrl, title) {
+            const existing = document.getElementById('shareOptionsModal');
+            if (existing) existing.remove();
+            
+            const modal = document.createElement('div');
+            modal.id = 'shareOptionsModal';
+            modal.className = 'share-modal';
+            modal.innerHTML = `
+                <div class="share-modal-content">
+                    <div class="share-modal-header">
+                        <h3>Share kwa</h3>
+                        <button class="share-modal-close" onclick="document.getElementById('shareOptionsModal').remove()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="share-options-grid">
+                        <a href="https://wa.me/?text=${encodeURIComponent(title + ' - ' + shareUrl)}" target="_blank" class="share-option whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                        
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}" target="_blank" class="share-option facebook">
+                            <i class="fab fa-facebook"></i>
+                            <span>Facebook</span>
+                        </a>
+                        
+                        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}" target="_blank" class="share-option twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                        
+                        <a href="https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}" target="_blank" class="share-option telegram">
+                            <i class="fab fa-telegram"></i>
+                            <span>Telegram</span>
+                        </a>
+                        
+                        <button class="share-option copy" onclick="copyShareLink('${shareUrl}')">
+                            <i class="fas fa-link"></i>
+                            <span>Copy Link</span>
+                        </button>
+                    </div>
+                    
+                    <div class="share-url-preview">
+                        <input type="text" value="${shareUrl}" readonly onclick="this.select()">
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) modal.remove();
+            });
+        }
+        
+        // ============ COPY SHARE LINK ============
+        async function copyShareLink(url) {
+            try {
+                await navigator.clipboard.writeText(url);
+                showToast('Link imecopywa!', 'success');
+                document.getElementById('shareOptionsModal')?.remove();
+            } catch (e) {
+                const input = document.createElement('input');
+                input.value = url;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                showToast('Link imecopywa!', 'success');
+            }
+        }
+        
+        // ============ DOWNLOAD CONTENT ============
+        async function downloadContent(btn, contentType, contentId, url) {
+            if (!url) {
+                showToast('Hakuna file ya download', 'warning');
+                return;
+            }
+            
+            try {
+                showToast('Download inaanza...', 'info');
+                
+                await supabaseClient.from('content_downloads').insert([{
+                    user_id: currentUser.id,
+                    content_type: contentType,
+                    content_id: contentId
+                }]);
+                
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Download failed');
+                
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = `KMCA-${contentType}-${Date.now()}.${getFileExtension(blob.type)}`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+                
+                showToast('Download imekamilika!', 'success');
+                
+            } catch (e) {
+                console.error('Download error:', e);
+                showToast('Imeshindikana ku-download', 'error');
+            }
+        }
+        
+        // ============ EMPTY STATE ============
+        function renderEmptyState(message) {
+            const container = document.getElementById('mainContent');
+            container.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+        
+        // ============ HELPERS ============
+        function formatMonth(monthStr) {
+            const [year, month] = monthStr.split('-');
+            const monthIndex = parseInt(month, 10) - 1;
+            return `${MONTH_NAMES_SW[monthIndex]} ${year}`;
+        }
+        
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            const dateOnly = new Date(dateStr);
+            const todayOnly = new Date(today.toISOString().split('T')[0]);
+            const yesterdayOnly = new Date(yesterday.toISOString().split('T')[0]);
+            
+            if (dateOnly.getTime() === todayOnly.getTime()) {
+                return 'LEO';
+            }
+            
+            if (dateOnly.getTime() === yesterdayOnly.getTime()) {
+                return 'JANA';
+            }
+            
+            return date.toLocaleDateString('sw-TZ', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+        }
+        
+        function getFileExtension(mimeType) {
+            const ext = {
+                'image/jpeg': 'jpg',
+                'image/png': 'png',
+                'image/webp': 'webp',
+                'video/mp4': 'mp4',
+                'audio/mpeg': 'mp3',
+                'application/pdf': 'pdf'
+            };
+            return ext[mimeType] || 'file';
+        }
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function escapeAttr(text) {
+            if (!text) return '';
+            return text.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+        
+        // ============ SETUP EVENTS ============
+        function setupEvents() {
+            // ✅ Back button - RUDI HOME.HTML
+            document.getElementById('backBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'home.html';
+            });
+        }
+    </script>
+    
+    <!-- ============ SHARE MODAL CSS ============ -->
+    <style>
+        .share-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 5000;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.2s;
+        }
+        
+        .share-modal-content {
+            background: var(--bg-card);
+            border-radius: 20px 20px 0 0;
+            width: 100%;
+            max-width: 500px;
+            padding: 24px 20px;
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        .share-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .share-modal-header h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-light);
+        }
+        
+        .share-modal-close {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-input);
+            border: none;
+            border-radius: 50%;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .share-options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .share-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 8px;
+            background: var(--bg-input);
+            border-radius: var(--radius-md);
+            border: none;
+            color: var(--text-light);
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+        
+        .share-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .share-option i { font-size: 28px; }
+        .share-option span { font-size: 12px; font-weight: 600; }
+        
+        .share-option.whatsapp i { color: #25D366; }
+        .share-option.facebook i { color: #1877F2; }
+        .share-option.twitter i { color: #1DA1F2; }
+        .share-option.telegram i { color: #0088cc; }
+        .share-option.copy i { color: var(--primary); }
+        
+        .share-url-preview input {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            color: var(--text-muted);
+            font-size: 12px;
+            outline: none;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+    </style>
+    <script src="hosting-config.js"></script>
+</body>
+</html>
